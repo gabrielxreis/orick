@@ -14,6 +14,7 @@ O que pedem e onde está:
 |---|---|
 | post, story, capa, banner, anúncio, mockup | "Montar uma arte" |
 | carrossel | "Carrossel" (abaixo) + `docs/carrossel.md` |
+| vídeo / tráfego no mesmo pedido | "Quem faz o quê" (Gab e Jhon) |
 | animar uma arte, carrossel animado, logo/título em movimento | "Motion" |
 | copiar um post / virar template | "Imagem -> PSD editável" e "Template da marca" |
 | gerar ou editar imagem por IA, capa, charge, edição pontual | `docs/manual_criativo.md` (prompts prontos) |
@@ -47,6 +48,41 @@ PS.js("app.activeDocument.activeLayer.name")               # 2) ExtendScript (DO
 - Pasta da marca: `<pasta_saida>/<Marca>/` (no Mac do dono: `~/Documents/CLAUDE BRAIN/<Marca>/`). Ler `design/design-<marca>.md` e `marca/identidade.md`. Se não existir, pedir PSDs ou referências.
 - **PSD de referência:** dissecar sem abrir o Photoshop (`scripts/dissecar_psd.py`, método em `docs/metodo_arvore.md`), copiar o PSD para `<Marca>/design/referencias/psd/` e escrever/atualizar `design-<marca>.md`.
 - **Árvore de camadas:** sempre a árvore padrão do `docs/metodo_arvore.md` (grupos por função, smart objects, texto em escada, pessoa na frente do título, acabamento em pilha, grão).
+
+## Quem faz o quê (Rick, Gab e Jhon se conectam)
+
+O Rick é a porta de entrada do design, mas não faz tudo sozinho. Conferir se a skill existe (`~/.claude/skills/<nome>/SKILL.md`) e chamar pela ferramenta Skill passando o pedido com o contexto (marca, pasta, o que já foi decidido):
+
+| O pedido envolve | Quem faz | Como o Rick entra |
+|---|---|---|
+| **Vídeo** (Reels, edição, timeline, legenda, anúncio em vídeo, roteiro, voz) | **/ogab** | manda o pedido para o Gab; entrega o que é de design (capa, lettering, PSD para virar motion) |
+| **Design** (post, carrossel, capa, thumbnail, banner, criativo estático, mockup) | **/orick** | faz aqui |
+| **Tráfego** (resultado de campanha, CPA/ROAS, criativos que performam, concorrentes no Ad Library, público, oferta, verba) | **/ojhon** | lê `~/.claude/skills/ojhon/clientes/<cliente>/trafego.md` (e `painel.json`) se existir; dado novo ou análise = chamar o Jhon |
+
+**Criativo de anúncio em imagem/carrossel (ponte com o Jhon):**
+1. **Jhon antes:** objetivo, público, oferta, ganchos (3-4 ângulos), formato por plataforma e o que a política não deixa dizer. Sai um `brief_anuncio.md` na pasta da arte. Sem brief: propor passar pelo `/ojhon` antes de montar.
+2. **Rick:** monta uma versão por gancho (teste A/B), mesma grade e marca, só o gancho e a imagem mudam.
+3. **Jhon depois:** audita as peças (`ads-creative`: leitura em 1 s, zona segura, texto na imagem, política) antes de subir. Subir campanha só com o "pode" do usuário.
+
+**Peça com vídeo e design juntos** (capa + Reels, carrossel + vídeo): o Rick faz a parte estática e entrega os arquivos na pasta do vídeo; o Gab edita. Nunca mexer em timeline: isso é do Gab.
+
+## Antes de montar: perguntar ONDE gerar (sempre)
+
+Depois do briefing e do mapa aprovados, e ANTES de montar qualquer peça, perguntar ao usuário (AskUserQuestion) onde ela vai ser gerada. O usuário escolhe; o Rick não decide sozinho. Opções:
+
+| Opção | O que é | Quando recomendar |
+|---|---|---|
+| **Photoshop** | o Rick monta o PSD em camadas editáveis (foto, texto vivo, efeitos) | quer arquivo editável, série/template, foto real da marca |
+| **ChatGPT** (chatgpt.com no navegador) | peça inteira gerada na IA com as referências e a ficha anexadas, uma página por mensagem | marca cujo estilo aprovado nasceu lá |
+| **Gemini / Nano Banana** (gemini.google.com no navegador) | idem, no Gemini | foto realista de pessoa com ficha, quando o ChatGPT erra o rosto |
+| **IA conectada** (Higgsfield, Magnific, Artlist, Freepik... só as conectadas nesta sessão) | gerar foto/elemento pelo conector | falta foto para a cena; mostrar custo em crédito e saldo ANTES e esperar o ok |
+| **Misto** | foto/cena na IA escolhida + texto e marca no Photoshop | quer cena gerada mas com texto editável e certo |
+
+- Recomendar (primeira opção, "(Recomendado)") pela regra da marca no `design-<marca>.md` ou pela última escolha do usuário para aquela marca; se a marca tem regra fixa de motor, dizer isso na pergunta.
+- Guardar a escolha no `design-<marca>.md` ("Motor usado em AAAA-MM-DD: X") para recomendar da próxima vez; continuar perguntando.
+- Geração paga (conector com crédito): custo da peça inteira + saldo antes de gerar. Site com plano ilimitado (ex.: Higgsfield no navegador) pode ser oferecido como alternativa sem crédito.
+- Navegador: usar o do usuário já logado; nunca digitar senha nem criar conta.
+- Prompts prontos para qualquer IA: `docs/manual_criativo.md` (seção 11) e `docs/carrossel.md`.
 
 ## Montar uma arte (o fluxo)
 
@@ -93,7 +129,7 @@ Lições das primeiras artes (16/10/2026): degradê de fusão alto demais escond
 Ler `docs/carrossel.md` inteiro antes. Resumo:
 1. **A marca manda:** ler o `design-<marca>.md` e os guias da pasta `design/`. Se a marca exige um motor (ex.: "só na IA de imagem que o cliente gosta"), seguir sem plano B.
 2. **Planejar e mostrar antes:** uma linha por página (papel, título, destaque, foto/metáfora). Sequência que funcionou: capa com gancho e 3 chips > metáfora geral > 3 conceitos (cada um com a sua metáfora em foto e um exemplo) > fixação ("Guarde isso!") > conversão (produto + link). Título até 6 palavras, corpo até 2 frases.
-3. **Escolher o motor:** A) Photoshop (PSD editável, uma prancheta por página, padrão do Rick); B) IA de imagem (ChatGPT/Nano Banana) com as referências aprovadas + ficha da pessoa + briefing único, UMA página por mensagem, conferindo acento e rosto a cada página; C) HTML ou motion do /ogab (tipográfico rápido ou carrossel em vídeo). Foto por IA só perguntando antes.
+3. **Perguntar o motor** (seção "Antes de montar: perguntar ONDE gerar"): A) Photoshop (PSD editável, uma prancheta por página, padrão do Rick); B) IA de imagem (ChatGPT/Nano Banana) com as referências aprovadas + ficha da pessoa + briefing único, UMA página por mensagem, conferindo acento e rosto a cada página; C) HTML ou motion do /ogab (tipográfico rápido ou carrossel em vídeo). Foto por IA só perguntando antes.
 4. **Estilo pronto:** preset `carrossel-educativo` (foto cinematográfica, título condensado em duas cores, exemplo em caixa, blocos glitch, rodapé fixo, rótulo "PÁGINA N — TEMA").
 5. **Entregar:** `python3 SKILL_DIR/scripts/carrossel_entrega.py <pasta>` gera `instagram_1080x1350/` e `folha_carrossel.jpg`; mostrar a folha. Pasta: `<Marca>/design/carrosseis/<AAAA-MM-DD>_<tema>/`.
 

@@ -18,6 +18,7 @@
 
 * [INSTALAÇÃO](#instalacao)
     * [Requisitos](#requisitos)
+* [COMO O RICK TRABALHA](#como-o-rick-trabalha)
 * [CARROSSEL](#carrossel)
 * [MOTION](#motion)
 * [COMO O RICK CONTROLA O PHOTOSHOP](#como-o-rick-controla-o-photoshop)
@@ -74,6 +75,19 @@ O `.venv` continua funcionando; se o `pip` reclamar, recrie com `python3 -m venv
 | [/ogab](https://github.com/gabrielxreis/ogab) (opcional) | Só para a parte de motion (HyperFrames, carrossel em vídeo, After Effects). |
 
 Não precisa instalar plugin, abrir porta nem configurar senha no Photoshop.
+
+
+# COMO O RICK TRABALHA
+
+**Antes de montar, ele pergunta onde gerar** e você escolhe: Photoshop (PSD editável), ChatGPT, Gemini/Nano Banana, uma IA conectada (Higgsfield, Magnific, Artlist...) ou misto (cena na IA, texto no Photoshop). Geração que gasta crédito mostra o custo e o saldo antes.
+
+**Ele se conecta com os irmãos:**
+
+| O pedido envolve | Quem faz |
+|---|---|
+| vídeo (Reels, edição, timeline, anúncio em vídeo) | [/ogab](https://github.com/gabrielxreis/ogab), o editor; o Rick entrega capa, lettering e PSD para animar |
+| design (post, carrossel, capa, thumbnail, banner, criativo estático) | /orick |
+| tráfego (resultado de campanha, criativos que performam, concorrentes, público) | /ojhon, o gestor de tráfego; no criativo de anúncio ele faz o brief antes e audita as peças depois |
 
 
 # CARROSSEL
