@@ -1,4 +1,4 @@
-# Diário de aprendizado do Yoshi
+# Diário de aprendizado do Rick
 
 Cada entrada: técnica, como faz no motor, o que deu errado e como ficou. Mais novo em cima.
 

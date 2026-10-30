@@ -1,4 +1,4 @@
-"""Roda um script de arte (.jsx que usa a biblioteca Y de jsx/yoshi.jsx) no Photoshop, com caminhos injetados.
+"""Roda um script de arte (.jsx que usa a biblioteca Y de jsx/rick.jsx) no Photoshop, com caminhos injetados.
     python3 montar.py arte.jsx VAR=valor VAR2=valor ...
 As variáveis viram `var VAR="valor";` antes do script. Devolve o que o script devolver e mostra alertas fechados.
 Fecha os documentos que o script abriu (já salvos pelo Y.salvar) para não lotar a RAM/disco de trabalho em
@@ -8,7 +8,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, AQUI)
 import ps_lib as PS
 arte = os.path.abspath(sys.argv[1])
 vars_ = dict(a.split("=", 1) for a in sys.argv[2:])
-cab = f'$.evalFile({json.dumps(os.path.join(AQUI, "jsx", "yoshi.jsx"))});\n' + "".join(f"var {k}={json.dumps(v)};\n" for k, v in vars_.items())
+cab = f'$.evalFile({json.dumps(os.path.join(AQUI, "jsx", "rick.jsx"))});\n' + "".join(f"var {k}={json.dumps(v)};\n" for k, v in vars_.items())
 ANTES = 'var s=[];for(var i=0;i<app.documents.length;i++)s.push(app.documents[i].id);s.join(",")'
 antes = set(PS.js(ANTES).split(","))
 try:

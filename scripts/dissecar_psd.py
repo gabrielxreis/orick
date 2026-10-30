@@ -1,9 +1,9 @@
 """Disseca um PSD SEM abrir o Photoshop (psd-tools): árvore de camadas, textos (fonte, tamanho, cor), efeitos,
-smart objects, máscaras, recortes, ajustes + prévia em JPG. Serve para o Yoshi estudar o método de um designer.
+smart objects, máscaras, recortes, ajustes + prévia em JPG. Serve para o Rick estudar o método de um designer.
 
     python3 dissecar_psd.py arquivo.psd pasta_saida/
 Saída: <pasta>/<nome>.arvore.md (legível), <nome>.arvore.json, <nome>.preview.jpg
-Requer: pip install psd-tools (o Yoshi usa um venv próprio; ver SKILL.md).
+Requer: pip install psd-tools (o Rick usa um venv próprio; ver SKILL.md).
 """
 import json
 import os

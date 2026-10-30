@@ -11,4 +11,4 @@ function walk(desc, path){
   else if (name && name!="-") out.push(id+"\t"+p+"\t"+cmd);
 }
 walk(d,"");
-var f=new File(Folder.temp+"/oyoshi_menus.txt"); f.encoding="UTF-8"; f.lineFeed="Unix"; f.open("w"); f.write(out.join("\n")); f.close(); out.length;
+var f=new File(Folder.temp+"/orick_menus.txt"); f.encoding="UTF-8"; f.lineFeed="Unix"; f.open("w"); f.write(out.join("\n")); f.close(); out.length;

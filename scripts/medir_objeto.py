@@ -78,7 +78,7 @@ def main():
         import re; slug = re.sub(r"[^a-z0-9]+", "-", a.ps.lower()).strip("-")[:40]
         MASCARA = os.path.splitext(a.img)[0] + f".{slug}.mascara.png"   # uma máscara por prompt (não sobrescreve)
         import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import ps_lib as PS
-        lib = os.path.join(os.path.dirname(os.path.abspath(__file__)), "jsx", "yoshi.jsx")
+        lib = os.path.join(os.path.dirname(os.path.abspath(__file__)), "jsx", "rick.jsx")
         r = PS.js(f"""$.evalFile({json.dumps(lib)}); var d = app.open(new File({json.dumps(os.path.abspath(a.img))})); Y.usar(d);
 var out; try {{ if (d.mode != DocumentMode.RGB) d.changeMode(ChangeMode.RGB); Y.selecionarPorPrompt(d.activeLayer, {json.dumps(a.ps.split("|"))});
   var bb = d.selection.bounds; out = [bb[0].as("px"), bb[1].as("px"), bb[2].as("px"), bb[3].as("px")].join(",");

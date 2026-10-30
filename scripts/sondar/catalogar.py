@@ -1,6 +1,6 @@
 """Gera o catálogo local do Photoshop desta máquina em docs/catalogo/local/ (fora do git).
 
-    python3 ~/.claude/skills/oyoshi/scripts/sondar/catalogar.py
+    python3 ~/.claude/skills/orick/scripts/sondar/catalogar.py
 
 - agente_ferramentas.json: ferramentas nativas do agente do Photoshop (listTools), com JSON Schema
 - batchplay_exemplos_adobe.json: comandos batchPlay usados pelos painéis da própria Adobe (com exemplo)

@@ -1,5 +1,5 @@
-// yoshi.jsx: funções de montagem do Yoshi (ExtendScript + Action Manager), testadas no Photoshop 2026.
-// Uso: $.evalFile(".../yoshi.jsx"); Y.doc(1080,1440,"nome"); var g=Y.grupo("FUNDO"); Y.solido("#0B1F3A","COR",g); ...
+// rick.jsx: funções de montagem do Rick (ExtendScript + Action Manager), testadas no Photoshop 2026.
+// Uso: $.evalFile(".../rick.jsx"); Y.doc(1080,1440,"nome"); var g=Y.grupo("FUNDO"); Y.solido("#0B1F3A","COR",g); ...
 // Coordenadas sempre em pixels do documento. Grupos: criar de BAIXO para CIMA (cada grupo novo vai para o topo).
 var Y = (function () {
   function s(x) { return stringIDToTypeID(x); }
@@ -19,7 +19,7 @@ var Y = (function () {
   var Y = {};
   Y.doc = function (w, h, nome, fundo) {
     app.displayDialogs = DialogModes.NO; app.preferences.rulerUnits = Units.PIXELS; app.preferences.typeUnits = TypeUnits.PIXELS;
-    D = app.documents.add(w, h, 72, nome || "yoshi", NewDocumentMode.RGB, DocumentFill.TRANSPARENT);
+    D = app.documents.add(w, h, 72, nome || "rick", NewDocumentMode.RGB, DocumentFill.TRANSPARENT);
     D.activeLayer.name = "base";
     return D;
   };
@@ -43,7 +43,7 @@ var Y = (function () {
     var a = new ActionDescriptor(), r = new ActionReference(); r.putClass(s("contentLayer")); a.putReference(s("null"), r);
     var u = new ActionDescriptor(), gd = new ActionDescriptor();
     gd.putUnitDouble(s("angle"), s("angleUnit"), angulo === undefined ? 90 : angulo); gd.putEnumerated(s("type"), s("gradientType"), s("linear"));
-    var gr = new ActionDescriptor(); gr.putString(s("name"), "yoshi"); gr.putEnumerated(s("gradientForm"), s("gradientForm"), s("customStops")); gr.putDouble(s("interfaceIconFrameDimmed"), 4096);
+    var gr = new ActionDescriptor(); gr.putString(s("name"), "rick"); gr.putEnumerated(s("gradientForm"), s("gradientForm"), s("customStops")); gr.putDouble(s("interfaceIconFrameDimmed"), 4096);
     var cl = new ActionList(), tl = new ActionList();
     for (var i = 0; i < paradas.length; i++) {
       var p = paradas[i], loc = Math.round(p[1] / 100 * 4096);
@@ -379,7 +379,7 @@ var Y = (function () {
   };
   // Mapa de degradê (unifica a cor da peça inteira). paradas: [["#0B0710",0],["#C9A04A",100]] (sombras -> luzes)
   function gradDesc(paradas) {   // paradas: [["#hex", local 0-100], ...]
-    var gr = new ActionDescriptor(); gr.putString(s("name"), "yoshi"); gr.putEnumerated(s("gradientForm"), s("gradientForm"), s("customStops")); gr.putDouble(s("interfaceIconFrameDimmed"), 4096);
+    var gr = new ActionDescriptor(); gr.putString(s("name"), "rick"); gr.putEnumerated(s("gradientForm"), s("gradientForm"), s("customStops")); gr.putDouble(s("interfaceIconFrameDimmed"), 4096);
     var cl = new ActionList(), tl = new ActionList();
     for (var i = 0; i < paradas.length; i++) { var p = paradas[i], loc = Math.round(p[1] / 100 * 4096);
       var c = new ActionDescriptor(); c.putObject(s("color"), s("RGBColor"), rgbDesc(p[0])); c.putEnumerated(s("type"), s("colorStopType"), s("userStop")); c.putInteger(s("location"), loc); c.putInteger(s("midpoint"), 50); cl.putObject(s("colorStop"), c);
@@ -389,7 +389,7 @@ var Y = (function () {
   Y.mapaDegrade = function (paradas, nome, g, modo, op) {
     var a = new ActionDescriptor(), r = new ActionReference(); r.putClass(s("adjustmentLayer")); a.putReference(s("null"), r);
     var u = new ActionDescriptor(), gm = new ActionDescriptor(), gr = new ActionDescriptor();
-    gr.putString(s("name"), "yoshi"); gr.putEnumerated(s("gradientForm"), s("gradientForm"), s("customStops")); gr.putDouble(s("interfaceIconFrameDimmed"), 4096);
+    gr.putString(s("name"), "rick"); gr.putEnumerated(s("gradientForm"), s("gradientForm"), s("customStops")); gr.putDouble(s("interfaceIconFrameDimmed"), 4096);
     var cl = new ActionList(), tl = new ActionList();
     for (var i = 0; i < paradas.length; i++) { var p = paradas[i], loc = Math.round(p[1] / 100 * 4096);
       var c = new ActionDescriptor(); c.putObject(s("color"), s("RGBColor"), rgbDesc(p[0])); c.putEnumerated(s("type"), s("colorStopType"), s("userStop")); c.putInteger(s("location"), loc); c.putInteger(s("midpoint"), 50); cl.putObject(s("colorStop"), c);
@@ -450,7 +450,7 @@ var Y = (function () {
     var arr = [];
     for (var i = 0; i < pts.length; i++) { var p = new PathPointInfo(); p.kind = PointKind.CORNERPOINT; p.anchor = [pts[i][0], pts[i][1]]; p.leftDirection = p.anchor; p.rightDirection = p.anchor; arr.push(p); }
     var sp = new SubPathInfo(); sp.closed = false; sp.operation = ShapeOperation.SHAPEXOR; sp.entireSubPath = arr;
-    var path = D.pathItems.add("yoshi_tmp", [sp]);
+    var path = D.pathItems.add("rick_tmp", [sp]);
     app.foregroundColor = rgb(hex);
     var a = new ActionDescriptor(), r = new ActionReference(); r.putClass(s("paintbrushTool")); a.putReference(s("null"), r); executeAction(s("select"), a, DialogModes.NO);
     var b1 = new ActionDescriptor(), r1 = new ActionReference(); r1.putEnumerated(s("brush"), s("ordinal"), s("targetEnum")); b1.putReference(s("null"), r1);

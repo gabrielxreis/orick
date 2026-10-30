@@ -1,6 +1,6 @@
 """Testa TODAS as ferramentas nativas do agente do Photoshop num documento de teste e grava o veredito.
 
-    python3 ~/.claude/skills/oyoshi/scripts/sondar/testar_ferramentas.py [--imagem foto_com_pessoa.png] [--so nome1,nome2]
+    python3 ~/.claude/skills/orick/scripts/sondar/testar_ferramentas.py [--imagem foto_com_pessoa.png] [--so nome1,nome2]
 
 - Monta um documento com foto, texto, forma, prancheta e as 14 camadas de ajuste.
 - Gera parâmetros mínimos válidos a partir do JSON Schema de cada ferramenta (com ajustes conhecidos em AJUSTES).
@@ -56,7 +56,7 @@ def main():
     PS.js("while(app.documents.length) app.activeDocument.close(SaveOptions.DONOTSAVECHANGES); 'ok'")
     D = F("application_new_document", {"width": {"value": 1080, "unit": "pixels"}, "height": {"value": 1350, "unit": "pixels"},
                                        "resolution": {"value": 72, "unit": "pixels_per_inch"}, "mode": "RGBColor",
-                                       "fill": "white", "name": "oyoshi_testador"})["data"]["doc_id"]
+                                       "fill": "white", "name": "orick_testador"})["data"]["doc_id"]
     if a.imagem:
         img = os.path.abspath(a.imagem).replace("\\", "/")
         PS.js(f"""function s(x){{return stringIDToTypeID(x);}} var a=new ActionDescriptor(); a.putPath(s("null"), new File("{img}"));
@@ -109,7 +109,7 @@ var c=new SolidColor(); c.rgb.hexValue="3366CC"; d.selection.fill(c); d.selectio
             if f"_{k}_" in f"_{n}_": return v
         return ids["pixel"]
 
-    FIXOS = {"doc_id": D, "prompt": "o retângulo azul", "text": "Novo texto", "name": "oyoshi", "preset_id": "P02",
+    FIXOS = {"doc_id": D, "prompt": "o retângulo azul", "text": "Novo texto", "name": "orick", "preset_id": "P02",
              "mask_data": mascara, "use_generative_ai": False, "bounds": RET, "area_frame": RET}
 
     def gera(sch, nome, ferr):
@@ -145,7 +145,7 @@ var c=new SolidColor(); c.rgb.hexValue="3366CC"; d.selection.fill(c); d.selectio
             lo = sch.get("minimum", sch.get("exclusiveMinimum", 0)); hi = sch.get("maximum", 100)
             v = max(lo + (1 if "exclusiveMinimum" in sch else 0), min(hi, 10))
             return int(v) if tp == "integer" else float(v)
-        if tp == "string": return "oyoshi"
+        if tp == "string": return "orick"
         return None
 
     AJUSTES = {

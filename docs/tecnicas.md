@@ -1,6 +1,6 @@
 # Técnicas do laboratório (engenharia reversa, testadas no Photoshop 2026)
 
-Cada técnica tem função no motor `Y` (scripts/jsx/yoshi.jsx) ou script em `scripts/`. Status: ✅ testada e conferida
+Cada técnica tem função no motor `Y` (scripts/jsx/rick.jsx) ou script em `scripts/`. Status: ✅ testada e conferida
 no PNG, ⚠️ funciona com ressalva.
 
 ## Como descobrir descritores novos (método)

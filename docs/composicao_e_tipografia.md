@@ -1,6 +1,6 @@
-# Composição, enquadramento e tipografia para posts (base do Yoshi)
+# Composição, enquadramento e tipografia para posts (base do Rick)
 
-Ler antes de definir o layout de qualquer peça. No fim há um **checklist** que o Yoshi aplica em toda arte antes de entregar.
+Ler antes de definir o layout de qualquer peça. No fim há um **checklist** que o Rick aplica em toda arte antes de entregar.
 
 ## 1. Enquadramento (pessoa e objeto)
 
@@ -65,7 +65,7 @@ Ler antes de definir o layout de qualquer peça. No fim há um **checklist** que
 - Destaque sempre na MESMA cor dentro da peça; cor de marca no destaque.
 - Unificar a foto com a paleta (mapa de degradê/tom da marca em Cor ou Luz suave).
 
-## 6. Checklist antes de entregar (o Yoshi confere em toda arte)
+## 6. Checklist antes de entregar (o Rick confere em toda arte)
 
 1. O gancho é lido em 1,5 s no celular (olhar a prévia reduzida para 400 px de largura)?
 2. Hierarquia de 3 níveis clara? Só 1-3 palavras em destaque?

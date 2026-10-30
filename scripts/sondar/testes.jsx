@@ -1,8 +1,8 @@
-var S=($.getenv('OYOSHI_TESTE')||Folder.temp.fsName);
+var S=($.getenv('ORICK_TESTE')||Folder.temp.fsName);
 var out=[]; app.displayDialogs=DialogModes.NO; app.preferences.rulerUnits=Units.PIXELS;
 function s(x){return stringIDToTypeID(x);}
 function T(nome, fn){ var t0=new Date().getTime(); try{ var r=fn(); out.push("OK\t"+nome+"\t"+(new Date().getTime()-t0)+"ms\t"+(r===undefined?"":r)); }catch(e){ out.push("FALHA\t"+nome+"\t"+(new Date().getTime()-t0)+"ms\t"+String(e).replace(/[\r\n]+/g," ")+" (linha "+e.line+")"); } }
-var d=app.documents.add(1080,1350,72,"oyoshi_testes",NewDocumentMode.RGB,DocumentFill.WHITE);
+var d=app.documents.add(1080,1350,72,"orick_testes",NewDocumentMode.RGB,DocumentFill.WHITE);
 function place(path){ var a=new ActionDescriptor(); a.putPath(s("null"), new File(path)); a.putEnumerated(s("freeTransformCenterState"), s("quadCenterState"), s("QCSAverage")); executeAction(s("placeEvent"),a,DialogModes.NO); return app.activeDocument.activeLayer; }
 T("place como smart object", function(){ var l=place(S+"/pessoa.png"); l.name="FOTO"; return l.kind; });
 T("ler tipo do smart object (AM smartObject)", function(){ var r=new ActionReference(); r.putEnumerated(s("layer"),s("ordinal"),s("targetEnum")); var dd=executeActionGet(r); return dd.hasKey(s("smartObject")) ? dd.getObjectValue(s("smartObject")).getString(s("fileReference")) : "sem"; });
@@ -40,5 +40,5 @@ T("export JPG via Save for Web", function(){ var o=new ExportOptionsSaveForWeb()
 T("salvar PSD em camadas", function(){ var o=new PhotoshopSaveOptions(); o.layers=true; d.saveAs(new File(S+"/teste.psd"),o,true); });
 T("runMenuItem (Selecionar Tudo por ID)", function(){ app.runMenuItem(s("selectAll")); return d.selection.bounds.toString(); });
 T("filtro: desfoque gaussiano em cópia", function(){ var l=d.artLayers.add(); l.name="BLURTEST"; d.selection.selectAll(); var c=new SolidColor(); c.rgb.hexValue="FF0000"; d.selection.fill(c); d.selection.deselect(); l.applyGaussianBlur(10); l.remove(); });
-T("histórico: suspendHistory (1 desfazer)", function(){ d.suspendHistory("oyoshi lote","var x=1;"); return d.historyStates.length; });
-var f=new File(Folder.temp+"/oyoshi_testes.txt"); f.encoding="UTF-8"; f.lineFeed="Unix"; f.open("w"); f.write(out.join("\n")); f.close(); "fim";
+T("histórico: suspendHistory (1 desfazer)", function(){ d.suspendHistory("orick lote","var x=1;"); return d.historyStates.length; });
+var f=new File(Folder.temp+"/orick_testes.txt"); f.encoding="UTF-8"; f.lineFeed="Unix"; f.open("w"); f.write(out.join("\n")); f.close(); "fim";

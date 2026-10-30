@@ -1,4 +1,4 @@
-"""Ponte mínima do Yoshi com o Photoshop (macOS): ExtendScript via AppleScript `do javascript`.
+"""Ponte mínima do Rick com o Photoshop (macOS): ExtendScript via AppleScript `do javascript`.
 
 Testado no Photoshop 2026 (27.11.0), 16/10/2026. Não precisa de plugin, porta nem senha.
 Uso:
@@ -99,7 +99,7 @@ def doc_frente():
 
 def gravar(ligar=True):
     """Liga/desliga o gravador: cada ação que o USUÁRIO faz no Photoshop vira uma linha JSON
-    (evento + descritor completo) em $TMPDIR/oyoshi_gravacao.jsonl. Ações feitas por script não aparecem.
+    (evento + descritor completo) em $TMPDIR/orick_gravacao.jsonl. Ações feitas por script não aparecem.
     Sempre desligar no fim."""
     if ligar:
         ev = os.path.join(JSX, "gravador_evento.jsx").replace("'", "\\'")

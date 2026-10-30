@@ -1,8 +1,8 @@
 <div align="center">
 
-[![/oyoshi](.github/banner.svg)](#readme)
+[![/orick](.github/banner.svg)](#readme)
 
-[![Último commit](https://img.shields.io/github/last-commit/gabrielxreis/oyoshi?color=brightgreen&label=atualizado&style=for-the-badge)](https://github.com/gabrielxreis/oyoshi/commits/main "Histórico")
+[![Último commit](https://img.shields.io/github/last-commit/gabrielxreis/orick?color=brightgreen&label=atualizado&style=for-the-badge)](https://github.com/gabrielxreis/orick/commits/main "Histórico")
 [![Claude Code](https://img.shields.io/badge/Claude_Code-skill-3DDC68.svg?style=for-the-badge&logo=anthropic&logoColor=white)](https://claude.com/claude-code "Claude Code")
 [![Photoshop](https://img.shields.io/badge/Photoshop-2026+-31A8FF.svg?style=for-the-badge&logo=adobephotoshop&logoColor=white)](#requisitos "Requisitos")
 [![Canva](https://img.shields.io/badge/Canva-em_breve-00C4CC.svg?style=for-the-badge)](#canva "Canva")
@@ -12,13 +12,15 @@
 
 </div>
 
-**/oyoshi** (o Yoshi) é uma skill do Claude Code que faz design **dentro do Adobe Photoshop** a partir das suas referências: post, carrossel, story, capa e miniatura do YouTube, anúncio, banner, mockup, recorte e tratamento de foto. Tudo sai em **camadas editáveis** (texto com a fonte de verdade, formas vetoriais, smart objects, estilos e camadas de ajuste), conferido olhando a imagem exportada. É o irmão de design do [**/ogab**](https://github.com/gabrielxreis/ogab), o editor de vídeo.
+**/orick** (o Rick) é uma skill do Claude Code que é **designer e motion designer**. Faz design **dentro do Adobe Photoshop** a partir das suas referências (post, carrossel, story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, recorte e tratamento de foto) e depois **anima** a peça (PSD em movimento, carrossel em vídeo, logo e título animados). Tudo sai em **camadas editáveis** (texto com a fonte de verdade, formas vetoriais, smart objects, estilos e camadas de ajuste), conferido olhando a imagem exportada. É o irmão de design do [**/ogab**](https://github.com/gabrielxreis/ogab), o editor de vídeo, e usa o motor de motion dele.
 
-> **Fase atual: engenharia reversa concluída, fluxo de design em construção.** O mapa do que o Photoshop faz por script está pronto e testado; a ponte já cria documentos, textos, formas, efeitos e camadas de ajuste. O passo a passo "referência > layout > aprovação > montagem" vem nas próximas versões.
+> Antes se chamava **/oyoshi** (o Yoshi). Quem já tinha instalado: veja [Veio do /oyoshi?](#veio-do-oyoshi).
 
 * [INSTALAÇÃO](#instalacao)
     * [Requisitos](#requisitos)
-* [COMO O YOSHI CONTROLA O PHOTOSHOP](#como-o-yoshi-controla-o-photoshop)
+* [CARROSSEL](#carrossel)
+* [MOTION](#motion)
+* [COMO O RICK CONTROLA O PHOTOSHOP](#como-o-rick-controla-o-photoshop)
 * [O QUE JÁ FUNCIONA](#o-que-ja-funciona)
 * [PRESETS DE ESTILO](#presets-de-estilo)
 * [CRÉDITOS GENERATIVOS](#creditos-generativos)
@@ -32,18 +34,34 @@
 # INSTALAÇÃO
 
 ```bash
-git clone https://github.com/gabrielxreis/oyoshi.git ~/.claude/skills/oyoshi
+git clone https://github.com/gabrielxreis/orick.git ~/.claude/skills/orick
 ```
 
 Com o Photoshop aberto, gere o catálogo da sua máquina (uma vez, e de novo quando o Photoshop atualizar):
 
 ```bash
-python3 ~/.claude/skills/oyoshi/scripts/sondar/catalogar.py
+python3 ~/.claude/skills/orick/scripts/sondar/catalogar.py
 ```
 
-Depois é só pedir no Claude Code: `/oyoshi faz um carrossel de 5 slides com essa referência`.
+Depois é só pedir no Claude Code:
 
-O Yoshi se atualiza sozinho (`git pull`) toda vez que é usado.
+```
+/orick faz um carrossel de 7 páginas ensinando suporte e resistência, no estilo dessas referências
+/orick monta a capa do Reels com essa foto e anima pra 6 segundos
+```
+
+O Rick se atualiza sozinho (`git pull`) toda vez que é usado.
+
+## Veio do /oyoshi?
+
+O repositório mudou de nome (o GitHub redireciona o endereço antigo). Para trocar a pasta:
+
+```bash
+mv ~/.claude/skills/oyoshi ~/.claude/skills/orick
+git -C ~/.claude/skills/orick remote set-url origin https://github.com/gabrielxreis/orick.git
+```
+
+O `.venv` continua funcionando; se o `pip` reclamar, recrie com `python3 -m venv ~/.claude/skills/orick/.venv`. Artes antigas (`arte.jsx`) não mudam: a biblioteca agora é `scripts/jsx/rick.jsx` e continua com as funções `Y.*`.
 
 ## Requisitos
 
@@ -53,11 +71,49 @@ O Yoshi se atualiza sozinho (`git pull`) toda vez que é usado.
 | Adobe Photoshop 2026 (27.x) | As ferramentas nativas do agente só existem no 2026. O básico (ExtendScript) funciona em versões antigas. |
 | Python 3.10+ | `scripts/ps_lib.py`. Sem dependências externas. |
 | Permissão de Acessibilidade para o Terminal | Só para fechar alertas do Photoshop sozinho (System Events). |
+| [/ogab](https://github.com/gabrielxreis/ogab) (opcional) | Só para a parte de motion (HyperFrames, carrossel em vídeo, After Effects). |
 
 Não precisa instalar plugin, abrir porta nem configurar senha no Photoshop.
 
 
-# COMO O YOSHI CONTROLA O PHOTOSHOP
+# CARROSSEL
+
+O Rick tem um método próprio de carrossel ([`docs/carrossel.md`](docs/carrossel.md)), aprendido de um carrossel educativo de 7 páginas que o cliente aprovou de primeira:
+
+1. **A marca manda:** paleta, fontes, logo, rodapé e o motor que o cliente prefere.
+2. **Planeja e mostra antes:** uma linha por página. Sequência: capa com gancho e 3 temas > metáfora geral > um conceito por página, cada um com a sua **metáfora do dia a dia em foto** > fixação ("Guarde isso!") > conversão com o link.
+3. **Monta** num destes motores:
+
+| Motor | Quando | Sai |
+|---|---|---|
+| **Photoshop** | quer o arquivo editável, vai virar série | PSD com uma prancheta por página + PNG |
+| **IA de imagem** (ChatGPT, Nano Banana) | o cliente gosta do resultado da IA, ou faltam fotos para as metáforas | PNG por página (briefing único + uma página por mensagem, conferindo acento e rosto) |
+| **HTML / motion do /ogab** | tipográfico rápido sem foto, ou carrossel em vídeo | PNG/PDF ou MP4 |
+
+4. **Entrega** com um comando: versão do Instagram (1080x1350, corte central) e uma folha com todas as páginas numeradas.
+
+```bash
+python3 ~/.claude/skills/orick/scripts/carrossel_entrega.py <pasta_das_paginas>
+```
+
+Estilo pronto: [`presets/carrossel-educativo`](presets/carrossel-educativo/README.md) (foto cinematográfica com a metáfora, título condensado em duas cores, exemplo em caixa, blocos glitch nas bordas, rodapé fixo).
+
+
+# MOTION
+
+O Rick anima o que desenha usando o motor do [/ogab](https://github.com/gabrielxreis/ogab):
+
+| O quê | Como |
+|---|---|
+| **Arte em movimento** | o PSD do Rick (grupos nomeados pela função) vira camadas animadas em HyperFrames com `arte_animada.py` (`ler` > `plano` > `montar` > render MP4) |
+| **Carrossel em vídeo** | cada página se monta sozinha em ~6,5 s e para no quadro final (`carrossel_motion`) |
+| **Títulos, listas, gráficos, logo reveal** | presets e biblioteca de motions do /ogab, renderizados com HyperFrames |
+| **After Effects** | camadas editáveis no AE pela ponte do /ogab |
+
+Vídeo editado (cortes, música, timeline no DaVinci) continua com o /ogab; o Rick entrega a peça animada.
+
+
+# COMO O RICK CONTROLA O PHOTOSHOP
 
 Engenharia reversa completa em [`docs/photoshop_api.md`](docs/photoshop_api.md). Resumo:
 
@@ -69,7 +125,7 @@ Engenharia reversa completa em [`docs/photoshop_api.md`](docs/photoshop_api.md).
 | **Menu pela tela** | 759 comandos de menu catalogados com o ID, para o raro caso sem script. |
 
 ```python
-import sys, os; sys.path.insert(0, os.path.expanduser("~/.claude/skills/oyoshi/scripts")); import ps_lib as PS
+import sys, os; sys.path.insert(0, os.path.expanduser("~/.claude/skills/orick/scripts")); import ps_lib as PS
 d = PS.doc_frente()
 PS.ferramenta("document_create_text_layer", {"doc_id": d, "text": "TÍTULO", "font_postscript_name": "Montserrat-Bold",
     "font_size": {"value": 96, "unit": "pixels"}, "position_x": 50, "position_y": 20, "position": "top"})
@@ -79,9 +135,9 @@ PS.js("app.activeDocument.layers.length")
 
 # O QUE JÁ FUNCIONA
 
-**Arte completa em camadas em 10-20 segundos.** O Yoshi escreve a peça como um roteiro (`arte.jsx`) usando a biblioteca `yoshi.jsx` (grupos, cor, degradê, foto ajustada à caixa, recorte de pessoa com IA local, texto com trechos coloridos, formas, efeitos, grão) e o `montar.py` constrói o PSD e o PNG. Exemplo: [`presets/igreja-moderna/exemplo`](presets/igreja-moderna/exemplo).
+**Arte completa em camadas em 10-20 segundos.** O Rick escreve a peça como um roteiro (`arte.jsx`) usando a biblioteca `rick.jsx` (grupos, cor, degradê, foto ajustada à caixa, recorte de pessoa com IA local, texto com trechos coloridos, formas, efeitos, grão) e o `montar.py` constrói o PSD e o PNG. Exemplo: [`presets/igreja-moderna/exemplo`](presets/igreja-moderna/exemplo).
 
-<img src="presets/igreja-moderna/exemplo/preview.jpg" width="360" alt="Arte montada pelo Yoshi">
+<img src="presets/igreja-moderna/exemplo/preview.jpg" width="360" alt="Arte montada pelo Rick">
 
 
 Testado no Photoshop 2026 (27.11), Mac:
@@ -99,11 +155,11 @@ Testado no Photoshop 2026 (27.11), Mac:
 
 # DA REFERÊNCIA AO PSD IDÊNTICO
 
-O Yoshi foi treinado remontando posts reais pixel a pixel. As ferramentas que saíram disso:
+O Rick foi treinado remontando posts reais pixel a pixel. As ferramentas que saíram disso:
 
-<img src="docs/previews/reconstrucao.jpg" width="720" alt="Imagem chapada à esquerda, PSD reconstruído pelo Yoshi à direita">
+<img src="docs/previews/reconstrucao.jpg" width="720" alt="Imagem chapada à esquerda, PSD reconstruído pelo Rick à direita">
 
-*À esquerda, o JPG achatado. À direita, o PSD que o Yoshi reconstruiu sozinho: fundo limpo, 9 camadas de texto vivo com a fonte reconhecida (Unbounded, Space Mono, Ivy Presto) e posição conferida em até 1 px. Único ajuste manual: `--corrigir "/ IGREJA=/IGREJA;•=·;IVNC=IVN©"` para três erros de leitura do OCR. Limite visível: a ponta dos dedos sobre o "G" ficou borrada pelo preenchimento do fundo.*
+*À esquerda, o JPG achatado. À direita, o PSD que o Rick reconstruiu sozinho: fundo limpo, 9 camadas de texto vivo com a fonte reconhecida (Unbounded, Space Mono, Ivy Presto) e posição conferida em até 1 px. Único ajuste manual: `--corrigir "/ IGREJA=/IGREJA;•=·;IVNC=IVN©"` para três erros de leitura do OCR. Limite visível: a ponta dos dedos sobre o "G" ficou borrada pelo preenchimento do fundo.*
 
 - **Imagem chapada -> PSD editável** (`reconstruir.py`): OCR nativo do macOS acha cada linha e palavra; o fundo vira "fundo limpo" (texto apagado com preenchimento sensível ao conteúdo, sem crédito); cada linha volta como texto vivo com a fonte reconhecida, negrito e cor de destaque detectados por palavra, caixa marca-texto como forma editável, interface do Instagram (seta, bolinhas) removida.
 - **Ciclo idêntico** (`ciclo.py`): mede a referência, monta, mede o próprio resultado com a mesma régua e corrige até o erro ficar em 1 px.
@@ -113,24 +169,25 @@ O Yoshi foi treinado remontando posts reais pixel a pixel. As ferramentas que sa
 - **Produção**: versão story automática (`para_story.jsx`), carrossel em pranchetas, mockup em perspectiva exata, QA automático de contraste/zona segura/margens (`conferir_arte.py`).
 - **Efeitos**: neon, cromado, extrusão 3D, sombra longa, texto vazado, retícula, dupla exposição, luz de recorte, sombra de contato, glitch RGB, LUT de cinema, mapa de deslocamento, texto em arco, Mesclar se, separação de frequência (detalhes em `docs/tecnicas.md`).
 
-<img src="docs/previews/tecnicas.jpg" width="820" alt="Neon, cromado, extrusão 3D, sombra longa, glitch, texto vazado, texto em arco e retícula feitos pelo Yoshi">
+<img src="docs/previews/tecnicas.jpg" width="820" alt="Neon, cromado, extrusão 3D, sombra longa, glitch, texto vazado, texto em arco e retícula feitos pelo Rick">
 
-*Cada quadro é uma linha de `yoshi.jsx` sobre um texto vivo (continua editável no Photoshop). Gerado por script, sem IA e sem crédito.*
+*Cada quadro é uma linha de `rick.jsx` sobre um texto vivo (continua editável no Photoshop). Gerado por script, sem IA e sem crédito.*
 
 # PRESETS DE ESTILO
 
-O Yoshi aprende um estilo dissecando PSDs profissionais (ou fazendo engenharia reversa de posts publicados) e guarda as **técnicas** como preset: árvore de camadas, tipografia (com alternativa gratuita), paletas, mesclagens e uma receita passo a passo. Nenhum arquivo de terceiros entra no repositório.
+O Rick aprende um estilo dissecando PSDs profissionais (ou fazendo engenharia reversa de posts publicados) e guarda as **técnicas** como preset: árvore de camadas, tipografia (com alternativa gratuita), paletas, mesclagens e uma receita passo a passo. Nenhum arquivo de terceiros entra no repositório.
 
 | Preset | O que é |
 |---|---|
 | [`igreja-culto`](presets/igreja-culto/README.md) | Flyer gospel: palco escuro, feixes de luz, cantor recortado e iluminado pela cor do palco, título com duas fontes na mesma palavra, anéis feitos com a letra "O", créditos em linha. Variação colagem. |
 | [`igreja-moderna`](presets/igreja-moderna/README.md) | Editorial de rede de igrejas: "DMNGO" gigante, pregador saindo da moldura, colagem maximalista, fonte mono de serviço, rabiscos à mão, line-up em pirâmide, raios de cor. 5 arquétipos. |
+| [`carrossel-educativo`](presets/carrossel-educativo/README.md) | Carrossel de 7 páginas que ensina com uma metáfora em foto por conceito: luz de cinema, título condensado em duas cores, exemplo em caixa, blocos glitch e rodapé fixo. Serve para qualquer nicho que ensina. |
 
 Presets **por marca** (cores, fontes, árvore e regras de um cliente) ficam na pasta do cliente, fora do git.
 
 # CRÉDITOS GENERATIVOS
 
-Estas ferramentas usam o Firefly e **gastam créditos generativos da sua conta Adobe**. O Yoshi só usa com sua autorização na hora:
+Estas ferramentas usam o Firefly e **gastam créditos generativos da sua conta Adobe**. O Rick só usa com sua autorização na hora:
 
 | Ferramenta | Modelo |
 |---|---|
@@ -143,11 +200,11 @@ Estas ferramentas usam o Firefly e **gastam créditos generativos da sua conta A
 
 # GRAVADOR DE AÇÕES
 
-O Yoshi aprende olhando: com o gravador ligado, cada ação que **você** faz no Photoshop (menu, painel, atalho) vira uma linha com o comando e todos os parâmetros. Você faz uma vez, ele repete por script.
+O Rick aprende olhando: com o gravador ligado, cada ação que **você** faz no Photoshop (menu, painel, atalho) vira uma linha com o comando e todos os parâmetros. Você faz uma vez, ele repete por script.
 
 ```python
 PS.gravar(True)    # você faz a ação no Photoshop
-PS.gravar(False)   # o resultado fica em $TMPDIR/oyoshi_gravacao.jsonl
+PS.gravar(False)   # o resultado fica em $TMPDIR/orick_gravacao.jsonl
 ```
 
 
@@ -168,7 +225,7 @@ O Canva não tem app local para controlar. O caminho é o **conector oficial do 
 # ESTRUTURA DO REPOSITÓRIO
 
 ```
-SKILL.md                     instruções do Yoshi para o Claude
+SKILL.md                     instruções do Rick para o Claude
 docs/photoshop_api.md        engenharia reversa: o que dá para fazer e como
 docs/catalogo/               menus, DOM, vocabulário do Action Manager, testes
 docs/catalogo/local/         gerado na sua máquina pelo catalogar.py (fora do git)
@@ -176,8 +233,10 @@ scripts/ps_lib.py            ponte Python com o Photoshop
 scripts/jsx/                 bibliotecas ExtendScript (descritor para JSON, agente, gravador)
 scripts/sondar/              scripts de sondagem para refazer a engenharia reversa
 scripts/dissecar_psd.py      estuda um PSD sem abrir o Photoshop
-scripts/jsx/yoshi.jsx        biblioteca de montagem (Y.texto, Y.colocar, Y.recortar...)
+scripts/jsx/rick.jsx        biblioteca de montagem (Y.texto, Y.colocar, Y.recortar...)
 scripts/montar.py            roda um arte.jsx e gera PSD + PNG
+scripts/carrossel_entrega.py páginas -> versão do Instagram + folha com todas
+docs/carrossel.md            método de carrossel (planejar, motores, entregar)
 scripts/extrair_so.py        tira fotos e logos de dentro dos smart objects de um PSD
 presets/<estilo>/            técnicas de um estilo (README + preset.json)
 ```

@@ -83,7 +83,7 @@ Mais simples e mais "limpa" que o show gospel. Árvore curta: `Logo / Social Med
 - **Prata/grafite:** fundo cinza escuro, laranja de destaque, branco #F3F3F3.
 - **Colagem:** preto, creme #F7EDD0, verde-limão, rosa, laranja, verde-escuro.
 
-## Receita do Yoshi (show gospel, feed 1080x1350)
+## Receita do Rick (show gospel, feed 1080x1350)
 
 1. Pedir: tema (palavra do título), data/hora, local, preletor, cantores, foto(s) recortável(is), paleta (laranja, roxo ou da igreja).
 2. Fundo: foto de palco/show (do banco do usuário ou **gerada por IA, só perguntando antes**) como smart object + Preenchimento de cor em modo Cor.

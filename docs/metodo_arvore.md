@@ -5,13 +5,13 @@ Aprendido em 16/10/2026 dissecando PSDs reais de redes sociais (carrosséis, dou
 ## Estudar um PSD (sem abrir o Photoshop)
 
 ```bash
-python3 -m venv ~/.claude/skills/oyoshi/.venv && ~/.claude/skills/oyoshi/.venv/bin/pip install -q psd-tools
-~/.claude/skills/oyoshi/.venv/bin/python ~/.claude/skills/oyoshi/scripts/dissecar_psd.py arquivo.psd <Marca>/design/referencias/
+python3 -m venv ~/.claude/skills/orick/.venv && ~/.claude/skills/orick/.venv/bin/pip install -q psd-tools
+~/.claude/skills/orick/.venv/bin/python ~/.claude/skills/orick/scripts/dissecar_psd.py arquivo.psd <Marca>/design/referencias/
 ```
 
 Gera `<nome>.arvore.md` (árvore igual ao painel Camadas, com fonte, tamanho real em px, cor, tracking e alinhamento de cada trecho de texto, efeitos, smart objects, máscaras, recortes, modos de mesclagem e opacidade), `.arvore.json` e `.preview.jpg`. Leva segundos até em PSD de 700 MB e não trava o Photoshop do usuário. Guardar uma cópia do PSD em `<Marca>/design/referencias/psd/` e escrever/atualizar `design-<marca>.md` com: formato, tipografia, cores, árvore padrão, truques e regras de conteúdo.
 
-## A árvore padrão do Yoshi
+## A árvore padrão do Rick
 
 Toda peça sai nesta ordem (de cima para baixo), com grupos nomeados em MAIÚSCULAS por função:
 
@@ -37,7 +37,7 @@ Regras que se repetiram em todos os designers:
 - Elemento de rodapé recorrente: "Te explicamos na legenda" + seta dentro de elipse, canto inferior direito.
 - Texto legal (disclaimer) sempre como **camada de texto editável**, mesmo quando o resto da arte vem achatado de IA.
 
-Os designers estudados quase não renomeiam camadas (`Objeto Inteligente de Vetor`, `Agrupar 1`). O Yoshi nomeia tudo pela função; o pôster mais organizado (grupos EFEITOS/AJUSTES/FILTROS/FINALIZAÇÃO/PHOTOS/BG) é o modelo.
+Os designers estudados quase não renomeiam camadas (`Objeto Inteligente de Vetor`, `Agrupar 1`). O Rick nomeia tudo pela função; o pôster mais organizado (grupos EFEITOS/AJUSTES/FILTROS/FINALIZAÇÃO/PHOTOS/BG) é o modelo.
 
 ## Fontes
 

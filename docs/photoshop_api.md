@@ -8,7 +8,7 @@
 | Camada | O que é | Quando usar |
 |---|---|---|
 | **Agente nativo do Photoshop** (`PS.ferramenta(nome, params)`) | Descoberta de 16/10/2026: o PS 2026 tem um "MCP interno" (o motor do "Assistente de IA"). AM `listTools` / `executeTool` com alvo `[agent, application]` devolvem **137 ferramentas com JSON Schema** de entrada e saída (`docs/catalogo/local/agente_ferramentas.json`) + **18 escondidas** (`agente_ferramentas_escondidas.txt`). Valida os parâmetros e devolve `{status, data}` em JSON. IDs de documento/camada são UUID. | **Primeira escolha** para o que existir lá: texto com fonte e bloco que se ajusta, formas, camadas de ajuste com parâmetros, efeitos, pranchetas, seleção por prompt, presets, estrutura do documento. |
-| **ExtendScript via AppleScript** (`scripts/ps_lib.py`) | `tell application id "com.adobe.Photoshop" to do javascript "$.evalFile('x.jsx')"`. Sem plugin, porta ou senha. DOM com 33 classes (`docs/catalogo/dom_extendscript.tsv`): Application 44 métodos, ArtLayer 70, Document 26, Selection 25, TextItem 60 propriedades. | **Caminho padrão do Yoshi.** Tudo que o DOM tem. |
+| **ExtendScript via AppleScript** (`scripts/ps_lib.py`) | `tell application id "com.adobe.Photoshop" to do javascript "$.evalFile('x.jsx')"`. Sem plugin, porta ou senha. DOM com 33 classes (`docs/catalogo/dom_extendscript.tsv`): Application 44 métodos, ArtLayer 70, Document 26, Selection 25, TextItem 60 propriedades. | **Caminho padrão do Rick.** Tudo que o DOM tem. |
 | **Action Manager** (`executeAction` / `executeActionGet` dentro do mesmo ExtendScript) | O "batchPlay" do ExtendScript: qualquer evento que o Photoshop grava (smart object, estilos de camada, formas, ajustes, IA). IDs por `stringIDToTypeID`. | Tudo que o DOM não alcança. Descobrir descritor novo: ver o código do photoshop-mcp ou gravar uma Ação e inspecionar. |
 | **Menu pela tela** (`app_menu` do computer use) | 759 comandos de menu catalogados com o ID (`docs/catalogo/menus_photoshop.tsv`). | Só quando não houver Action Manager. **`app.runMenuItem` NÃO funciona** quando o script vem do AppleScript (ver armadilhas). |
 | **UXP + batchPlay** (plugin dentro do Photoshop) | API moderna da Adobe (JavaScript, `executeAsModal`, Imaging API). Exige instalar um plugin (.ccx ou UXP Developer Tool). | Só para o que o ExtendScript não faz: **Neural Filters** e leitura de pixels rápida. Não necessário para começar. |
@@ -19,7 +19,7 @@
 ## Agente nativo: como usar
 
 ```python
-import sys, os; sys.path.insert(0, os.path.expanduser("~/.claude/skills/oyoshi/scripts")); import ps_lib as PS
+import sys, os; sys.path.insert(0, os.path.expanduser("~/.claude/skills/orick/scripts")); import ps_lib as PS
 d = PS.doc_frente()                                   # UUID do documento da frente
 PS.ferramenta("document_create_text_layer", {"doc_id": d, "text": "TÍTULO", "font_postscript_name": "Montserrat-Bold",
     "font_size": {"value": 96, "unit": "pixels"}, "font_color": {"r":255,"g":212,"b":0},
@@ -39,7 +39,7 @@ Por baixo: `executeAction(s("executeTool"))` com `null` = referência `agent` de
 
 ## Gravador de ações (aprender com o usuário)
 
-`PS.gravar(True)` registra um notifier `"All "`: cada ação feita **pela interface** (menu, painel, atalho) vira uma linha em `$TMPDIR/oyoshi_gravacao.jsonl` com o evento e o descritor completo, referências incluídas. Testado: "Selecionar > Tudo" gravou `invokeCommand {commandID: 1017}` + `set {null: [{_ref: channel, _property: selection}], to: allEnum}`. Ações feitas por script NÃO aparecem. É o ScriptingListener sem instalar nada: o usuário faz uma vez, o Yoshi copia o descritor e repete por script. **Sempre `PS.gravar(False)` no fim.**
+`PS.gravar(True)` registra um notifier `"All "`: cada ação feita **pela interface** (menu, painel, atalho) vira uma linha em `$TMPDIR/orick_gravacao.jsonl` com o evento e o descritor completo, referências incluídas. Testado: "Selecionar > Tudo" gravou `invokeCommand {commandID: 1017}` + `set {null: [{_ref: channel, _property: selection}], to: allEnum}`. Ações feitas por script NÃO aparecem. É o ScriptingListener sem instalar nada: o usuário faz uma vez, o Rick copia o descritor e repete por script. **Sempre `PS.gravar(False)` no fim.**
 
 ## Ouro escondido no app (engenharia reversa dos painéis da Adobe)
 
@@ -87,7 +87,7 @@ O Photoshop traz 23 plugins UXP próprios em `Contents/Required/UXP/` (461 MB de
 | Sky Replacement | AM `skyReplacement` | Sem crédito. |
 | Preenchimento sensível ao conteúdo | AM `fill` com `contentAware` | Sem crédito. |
 | **Variáveis / Conjuntos de dados** | Menu Image > Variables / File > Export > Data Sets as Files | Template em lote a partir de CSV (o "autofill" do Photoshop). |
-| Layer comps, guias, amostras de cor, ações (`app.doAction`) | DOM | Ação gravada pelo usuário vira atalho do Yoshi. |
+| Layer comps, guias, amostras de cor, ações (`app.doAction`) | DOM | Ação gravada pelo usuário vira atalho do Rick. |
 | Scripts que já vêm no app | `Presets/Scripts/`: Export Layers To Files, ArtBoards To Files/PDF, Layer Comps To Files, Image Processor, Fit Image | Exportar carrossel por prancheta de graça. |
 | Neural Filters (pele, harmonizar, colorir, super zoom) | Só via UXP batchPlay | Precisa do plugin UXP. |
 
@@ -122,7 +122,7 @@ O Photoshop traz 23 plugins UXP próprios em `Contents/Required/UXP/` (461 MB de
 | [alisaitteke/photoshop-mcp](https://github.com/alisaitteke/photoshop-mcp) (657★, MIT, atualizado 15/10/2026) | AppleScript `do javascript` (Mac) / COM (Win); UXP opcional na porta 38452 | **Melhor fonte de descritores prontos** (128 ferramentas, 17 receitas com 1 desfazer, Firefly). Usar como referência de código; instalar só se quiser as ferramentas MCP prontas. Tem telemetria anônima ligada por padrão. |
 | [loonghao/photoshop-python-api-mcp-server](https://github.com/loonghao/photoshop-python-api-mcp-server) | COM | **Só Windows.** Ferramentas básicas. Não serve no Mac. |
 | [kyamagu/photoshop-connection](https://github.com/kyamagu/photoshop-connection) | Socket criptografado na porta 49494 (Conexões remotas) | **Arquivado.** Mesmo ExtendScript com mais configuração. Não usar. |
-| [sfkislev/flue](https://github.com/sfkislev/flue) (skill `photoshop`, 97★, MIT) | AppleScript `do javascript` (Mac) / COM (Win), por um `photoshop_bridge.py` | Mesmo caminho do Yoshi. Aproveitado: o **índice do DOM inteiro** (93 classes, 725 enums, 2157 propriedades, 67 métodos) em `docs/catalogo/flue_api-index.txt` (buscar com `rg`, nunca ler inteiro) e a ideia de um `APP.local.md` com armadilhas da máquina. Ele cobre também Illustrator, InDesign, AE, Premiere. |
+| [sfkislev/flue](https://github.com/sfkislev/flue) (skill `photoshop`, 97★, MIT) | AppleScript `do javascript` (Mac) / COM (Win), por um `photoshop_bridge.py` | Mesmo caminho do Rick. Aproveitado: o **índice do DOM inteiro** (93 classes, 725 enums, 2157 propriedades, 67 métodos) em `docs/catalogo/flue_api-index.txt` (buscar com `rg`, nunca ler inteiro) e a ideia de um `APP.local.md` com armadilhas da máquina. Ele cobre também Illustrator, InDesign, AE, Premiere. |
 | [photoshop-automator](https://www.skillsdirectory.com/skills/neversight-photoshop-automator) (abdul-karim-mia) | AppleScript (Mac) / VBScript+COM (Win) | Só 6 comandos (rodar JSX, trocar texto, criar camada, desfoque, ação, exportar). Nada novo. |
 | [adobe/skills](https://github.com/adobe/skills) | n/a | **Sem Photoshop.** Tem Express (`adobe-design-from-template`), Firefly (`run-workflow`, exige plano enterprise) e "Adobe for Creativity" (só app desktop). Pode entrar depois para Adobe Express. |
 
@@ -133,8 +133,8 @@ O Canva não tem app local scriptável. O caminho é o **MCP oficial do Canva** 
 ## Como refazer a sondagem (versão nova do Photoshop)
 
 ```bash
-osascript -e "tell application id \"com.adobe.Photoshop\" to do javascript \"\$.evalFile('$HOME/.claude/skills/oyoshi/scripts/sondar/reflect.jsx')\""
-osascript -e "tell application id \"com.adobe.Photoshop\" to do javascript \"\$.evalFile('$HOME/.claude/skills/oyoshi/scripts/sondar/menus.jsx')\""
+osascript -e "tell application id \"com.adobe.Photoshop\" to do javascript \"\$.evalFile('$HOME/.claude/skills/orick/scripts/sondar/reflect.jsx')\""
+osascript -e "tell application id \"com.adobe.Photoshop\" to do javascript \"\$.evalFile('$HOME/.claude/skills/orick/scripts/sondar/menus.jsx')\""
 ```
 
-Saídas em `$TMPDIR/oyoshi_*.txt`. `testes.jsx` precisa de `pessoa.png` e `logo.png` na pasta de `OYOSHI_TESTE` (ou na pasta temporária).
+Saídas em `$TMPDIR/orick_*.txt`. `testes.jsx` precisa de `pessoa.png` e `logo.png` na pasta de `ORICK_TESTE` (ou na pasta temporária).

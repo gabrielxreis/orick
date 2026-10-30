@@ -53,7 +53,7 @@ Fundo com **raios coloridos em leque** (verde, amarelo, azul, roxo, arco-íris) 
 - Roxo/magenta + rosa (D).
 - Navy + arco-íris / verde + amarelo + azul (E).
 
-## Árvore (aplicando o método do Yoshi)
+## Árvore (aplicando o método do Rick)
 
 ```
 ACABAMENTO   textura de papel/poeira (Multiplicação ou Tela), grão, LUT leve

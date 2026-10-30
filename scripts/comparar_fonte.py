@@ -1,6 +1,6 @@
 """Comparador de fonte local: descobre qual fonte instalada/ativada mais se parece com uma linha de texto da referência.
 
-    ~/.claude/skills/oyoshi/.venv/bin/python comparar_fonte.py imagem.png X1 Y1 X2 Y2 "TEXTO EXATO" [--filtro Good,Anton,Bebas] [--top 12]
+    ~/.claude/skills/orick/.venv/bin/python comparar_fonte.py imagem.png X1 Y1 X2 Y2 "TEXTO EXATO" [--filtro Good,Anton,Bebas] [--top 12]
 
 - Renderiza o MESMO texto em cada fonte (sistema, ~/Library/Fonts e fontes ativadas pelo Adobe Fonts) e compara
   com o recorte da referência: forma (IoU dos pixels depois de igualar altura e largura) + proporção largura/altura.
@@ -20,7 +20,7 @@ import numpy as np
 from fontTools.ttLib import TTCollection, TTFont
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
-CACHE = os.path.expanduser("~/.claude/skills/oyoshi/.venv/fontes_indice.json")
+CACHE = os.path.expanduser("~/.claude/skills/orick/.venv/fontes_indice.json")
 PASTAS = ["/System/Library/Fonts", "/Library/Fonts", os.path.expanduser("~/Library/Fonts"),
           os.path.expanduser("~/Library/Application Support/Adobe/CoreSync/plugins/livetype")]
 

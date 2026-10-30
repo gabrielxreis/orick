@@ -9,7 +9,7 @@ function dump(nome, obj){
   }catch(e){ out.push("ERR\t"+nome+"\t"+e); }
 }
 app.displayDialogs = DialogModes.NO;
-var d = app.documents.add(1080,1350,72,"oyoshi_probe",NewDocumentMode.RGB,DocumentFill.WHITE);
+var d = app.documents.add(1080,1350,72,"orick_probe",NewDocumentMode.RGB,DocumentFill.WHITE);
 dump("Application", app);
 dump("Preferences", app.preferences);
 dump("Document", d);
@@ -40,5 +40,5 @@ dump("ActionDescriptor", new ActionDescriptor());
 dump("ActionReference", new ActionReference());
 dump("ActionList", new ActionList());
 d.close(SaveOptions.DONOTSAVECHANGES);
-var f = new File(Folder.temp + "/oyoshi_reflect.txt"); f.encoding="UTF-8"; f.open("w"); f.write(out.join("\n")); f.close();
+var f = new File(Folder.temp + "/orick_reflect.txt"); f.encoding="UTF-8"; f.open("w"); f.write(out.join("\n")); f.close();
 f.fsName;
