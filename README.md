@@ -90,13 +90,19 @@ O Rick tem um método próprio de carrossel ([`docs/carrossel.md`](docs/carrosse
 | **IA de imagem** (ChatGPT, Nano Banana) | o cliente gosta do resultado da IA, ou faltam fotos para as metáforas | PNG por página (briefing único + uma página por mensagem, conferindo acento e rosto) |
 | **HTML / motion do /ogab** | tipográfico rápido sem foto, ou carrossel em vídeo | PNG/PDF ou MP4 |
 
-4. **Entrega** com um comando: versão do Instagram (1080x1350, corte central) e uma folha com todas as páginas numeradas.
+4. **Escolhe o tipo antes:** educativo (lista, antes/depois, mito/realidade, método), campanha de produto em 3 páginas (produto completo > em uso > fechamento de marca) ou motion.
+5. **Entrega** com um comando: versão do Instagram (1080x1350, corte central) e uma folha com todas as páginas numeradas.
 
 ```bash
 python3 ~/.claude/skills/orick/scripts/carrossel_entrega.py <pasta_das_paginas>
 ```
 
 Estilo pronto: [`presets/carrossel-educativo`](presets/carrossel-educativo/README.md) (foto cinematográfica com a metáfora, título condensado em duas cores, exemplo em caixa, blocos glitch nas bordas, rodapé fixo).
+
+
+## Manual criativo
+
+O básico que o Rick aplica em toda peça está em [`docs/manual_criativo.md`](docs/manual_criativo.md): ordem de prioridade entre pedido, correção e marca; ideia antes do efeito; cor natural na foto (a cor da marca só nos detalhes); fotografia realista, fisheye sem vinheta, plano aberto com área para título e charge recortável por IA; edição pontual que preserva o resto; margens de headline e zona segura do Reels; checagem de fatos; processo em 10 etapas, prompts prontos e checklist.
 
 
 # MOTION
@@ -236,7 +242,8 @@ scripts/dissecar_psd.py      estuda um PSD sem abrir o Photoshop
 scripts/jsx/rick.jsx        biblioteca de montagem (Y.texto, Y.colocar, Y.recortar...)
 scripts/montar.py            roda um arte.jsx e gera PSD + PNG
 scripts/carrossel_entrega.py páginas -> versão do Instagram + folha com todas
-docs/carrossel.md            método de carrossel (planejar, motores, entregar)
+docs/carrossel.md            método de carrossel (tipos, planejar, motores, entregar)
+docs/manual_criativo.md      regras gerais de criação, prompts de IA e checklist
 scripts/extrair_so.py        tira fotos e logos de dentro dos smart objects de um PSD
 presets/<estilo>/            técnicas de um estilo (README + preset.json)
 ```

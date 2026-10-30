@@ -16,6 +16,9 @@ O que pedem e onde está:
 | carrossel | "Carrossel" (abaixo) + `docs/carrossel.md` |
 | animar uma arte, carrossel animado, logo/título em movimento | "Motion" |
 | copiar um post / virar template | "Imagem -> PSD editável" e "Template da marca" |
+| gerar ou editar imagem por IA, capa, charge, edição pontual | `docs/manual_criativo.md` (prompts prontos) |
+
+**Antes de QUALQUER peça: ler `docs/manual_criativo.md`** (ordem de prioridade, ideia antes do efeito, cor natural na foto com a cor da marca só nos detalhes, margem de headline 80-90 px, acento em caixa alta, edição pontual preserva a base, fatos confirmados, processo em 10 etapas e checklist). Marca nova sem `design-<marca>.md`: abrir com a ficha da seção 13 dele.
 
 Pasta da skill: `~/.claude/skills/orick/` (`SKILL_DIR`).
 

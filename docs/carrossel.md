@@ -11,6 +11,28 @@ finanças, igreja, saúde, imigração, curso. Preset pronto: [`presets/carrosse
 2. Paleta, fontes, logo, rodapé e @ sempre os da marca. Nunca copiar marca de referência nem preset de outro cliente.
 3. Sem referência da marca? Pedir 3 a 6 carrosséis que o cliente gosta, ou propor o preset `carrossel-educativo`.
 
+## 0b. Escolher o TIPO antes de montar
+
+| Tipo | Função | Estrutura |
+|---|---|---|
+| **Educativo** | explicar, listar, entregar método | gancho, valor cedo, resumo útil, uma ação (seções 1-2) |
+| **Campanha publicitária** | valorizar produto e construir marca | produto completo > produto em uso > produto com o universo da marca (seção 3b) |
+| **Motion/painel** | mostrar sistema, rotina, conexões | capa, módulos, conexão e CTA animados (motor C) |
+
+Não obrigar uma campanha de 3 páginas a virar aula de 10 slides: o pedido e a função da peça mandam.
+
+**Estruturas do educativo** (a de 7 páginas abaixo é uma "método/conceitos"):
+| Estrutura | Sequência | Objetivo |
+|---|---|---|
+| Lista | promessa, itens, lista resumida | salvar |
+| Antes/depois | resultado, ponto inicial, etapas, conclusão | mostrar transformação |
+| Mito/realidade | crença, correção sustentada, reenquadramento | compartilhar |
+| Método | promessa, partes do processo, método completo | referência aplicável |
+
+Quantidade de páginas sai do conteúdo real (6-10 é ponto de partida, não meta). Não inventar números, casos ou
+resultados para o gancho. Capa: promessa concreta e motivo para deslizar (6-12 palavras), não só o nome do assunto.
+Última página: síntese útil sozinha + UMA ação.
+
 ## 1. Planejar o texto (mostrar antes de desenhar)
 
 - Usar a `ig-carousel-planner` (se instalada) ou este roteiro. Mostrar ao usuário uma linha por página
@@ -87,6 +109,42 @@ Fotos das metáforas por IA (motor A ou B) **só perguntando antes** (o que vai 
    rosto. Errou: pedir de novo só aquela página dizendo o que corrigir.
 6. Baixar (sai ~1122x1402), renomear `01_capa.png` ... `07_conversao.png`.
 7. Logo de marca citada (banco, bolsa, órgão) que a IA desenhou torta: trocar pela oficial no Photoshop.
+
+### 3b. Campanha publicitária de produto (3 páginas, aprovada num caso real de 29/10/2026)
+
+1. **Página 1:** conjunto completo do produto (com estojo/embalagem), apresentação de impacto.
+2. **Página 2:** produto em uso (mesa posta, mão, ambiente), produto ainda em destaque.
+3. **Página 3:** produto + embalagem + fechamento de marca, com UMA ação no rodapé (ícone de seguir no centro).
+- Seta/"swipe" discreta nas páginas 1 e 2. Rodapé consistente; logo do estúdio + "Concept Campaign" quando é
+  campanha conceitual (marca fictícia).
+- Fotografia publicitária realista dominante, materiais táteis, poucas palavras, tipografia com peso e caráter.
+- Testar a direção na página 1, aprovar e usar como referência das outras (mesmo desenho, material e acabamento do
+  produto; só a composição muda).
+- Erros que o cliente corrigiu: um item isolado em vez da coleção; tipografia fraca para marca clássica; faltou a
+  assinatura do estúdio no rodapé.
+- Não inventar alegações, preços, datas ou endereços. Entregar 3 arquivos separados (sem mosaico, sem mockup de
+  celular). Importar no Canva só se pedirem, avisando que a imagem importada não vira texto editável.
+
+Prompt (IA de imagem):
+```text
+Criar três artes individuais de carrossel 4:5 para [marca], em [idioma]. Usar a identidade e logo oficiais anexadas.
+Produto como protagonista, grande, identificável, totalmente visível e com desenho consistente.
+Fotografia publicitária realista, materiais e reflexos plausíveis, tipografia [direção da marca], poucas palavras e
+margens amplas. Página 1: conjunto completo, apresentação de impacto. Página 2: contexto de uso, produto em destaque.
+Página 3: produto com embalagem e fechamento de marca. Nas duas primeiras, indicação discreta de arrastar; na
+terceira, uma ação principal no rodapé. Não inventar alegações, datas, preços ou endereços.
+Usar a primeira página aprovada como referência das demais. Arquivos separados, sem mosaico e sem mockup.
+```
+
+Briefing de carrossel educativo (para planejar com IA ou mostrar ao usuário):
+```text
+Tema: [tema]. Público: [público]. Conta: [conta]. Idioma: [idioma].
+Objetivo principal: [salvar/compartilhar/comentar/seguir]. Estrutura: [lista/transformação/mitos/método].
+Escreva primeiro o mapa slide a slide, com função, headline, destaque e ideia visual. Uma ideia por página.
+Capa com promessa clara; conteúdo forte cedo; encerramento com síntese útil.
+Não invente números, casos ou resultados. Não preencha páginas com repetição.
+Use a identidade anexada e preserve respiro em todas as headlines.
+```
 
 ### C. HTML / motion do /ogab
 

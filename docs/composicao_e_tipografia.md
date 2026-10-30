@@ -72,7 +72,7 @@ Ler antes de definir o layout de qualquer peça. No fim há um **checklist** que
 3. Texto fora do rosto e das mãos, a não ser o "texto atrás" intencional (≤30% da palavra coberta)?
 4. Olhar/gesto da pessoa aponta para o texto (ou composição central simétrica)?
 5. Corte da foto fora das articulações; cabeça sem respiro exagerado?
-6. Margens iguais (60-80 px) e tudo dentro da zona segura do formato?
+6. Margens iguais (60-80 px; headline com 80-90 px de folga lateral) e tudo dentro da zona segura do formato?
 7. Quebras de linha por sentido, sem viúva, entrelinha do título apertada?
 8. Contraste suficiente (degradê/scrim onde o texto passa)?
 9. 60-30-10 respeitado e destaque na cor da marca?
