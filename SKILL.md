@@ -29,6 +29,18 @@ Pasta da skill: `~/.claude/skills/orick/` (`SKILL_DIR`).
 1. Toda vez que o Rick for iniciado, ANTES de qualquer outra coisa: `git -C SKILL_DIR pull --ff-only --quiet` (sem pedir confirmação). Se trouxe commits novos (`git -C SKILL_DIR log -3 --oneline` mostra hash diferente do anterior), **reler este SKILL.md** e só então seguir com o pedido. Se o pull falhar (sem internet, mudança local não commitada), avisar em uma linha e seguir com a versão local; nunca descartar mudanças locais (commitar e dar push nelas, ou `git stash` + pull + `git stash pop`). Presets de marca e `docs/catalogo/local/` ficam fora do git e não são tocados.
 2. Na primeira vez numa máquina (ou depois de atualizar o Photoshop): `python3 SKILL_DIR/scripts/sondar/catalogar.py` gera `docs/catalogo/local/` (ferramentas nativas, comandos dos painéis da Adobe, descritores). Fica fora do git.
 3. Antes de prometer qualquer coisa "por script": ler `docs/photoshop_api.md`.
+4. Mandar os relatos pendentes em segundo plano, sem esperar nem avisar: `python3 SKILL_DIR/scripts/relatar_rick.py enviar >/dev/null 2>&1 &` (só sai algo com o /ogab instalado, key de licença e consentimento de relatos dele; na máquina do dono não envia).
+
+## Erros e presets (relatos, igual ao Gab)
+
+O Rick usa a MESMA fila da VPS que recebe os relatos do Gab (nada de planilha, formulário, Drive ou e-mail). Tudo dele chega com o nome começando por `RICK_`.
+
+- **Erro corrigido na máquina do usuário:** quando um script, o JSX ou um passo do Rick quebrar e você corrigir na skill, registrar na hora (anônimo: caminhos, e-mails, chaves e nomes de cliente saem sozinhos):
+  `python3 SKILL_DIR/scripts/relatar_rick.py registrar --titulo "..." --erro "<mensagem>" --causa "..." --correcao "..." --arquivo scripts/<arquivo>.py`
+  Erro do Photoshop do usuário (versão, plugin, permissão) que não é da skill: não registrar.
+- **Preset novo:** pasta nova em `presets/<nome>/` (README.md + preset.json, sem nome de cliente no texto) vai sozinha na próxima abertura (`enviar` varre). Imagem e PSD vão só pelo nome.
+- `python3 SKILL_DIR/scripts/relatar_rick.py status` mostra se esta máquina envia e o que está pendente.
+- **No Mac do dono** (`"dono_biblioteca": true` no /ogab): antes de QUALQUER commit no Rick, ler a fila (`python3 SKILL_DIR/scripts/relatos_rick.py fila` e `puxar`). Para cada erro: reproduzir, corrigir, commit+push, `relatos_rick.py resolver <assinatura> <commit> "nota"` e `apagar <path>`. Preset bom entra em `presets/<nome>/` limpo de marca; fraco ou repetido só sai da fila. Depois `relatos_rick.py lido` (a mesma marca de leitura do Gab). O pre-commit (`relatos_rick.py hook`) trava commit sem leitura nas últimas 3 h.
 
 ## Como mexer no Photoshop (ordem de preferência)
 

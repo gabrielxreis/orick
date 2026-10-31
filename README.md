@@ -133,6 +133,16 @@ O Rick anima o que desenha usando o motor do [/ogab](https://github.com/gabrielx
 Vídeo editado (cortes, música, timeline no DaVinci) continua com o /ogab; o Rick entrega a peça animada.
 
 
+# ERROS E PRESETS DA COMUNIDADE
+
+O Rick usa o mesmo canal de relatos do [/ogab](https://github.com/gabrielxreis/ogab): quando ele corrige um erro da skill na sua máquina, ou quando você cria um preset novo em `presets/<nome>/`, isso vai **anônimo** para a fila do Gabriel, que corrige e publica a melhoria para todo mundo no próximo update.
+
+- Só sai com o /ogab instalado e o consentimento de relatos que você deu nos termos dele (mudar: `/ogab config relatos sim|nao`).
+- Saem a mensagem do erro, a causa, a correção e o diff do arquivo da skill. Caminhos, e-mails, chaves, seu nome e os nomes dos clientes são apagados antes de gravar.
+- Preset vai como texto (README e preset.json); imagem e PSD vão só pelo nome. Nada de arte, foto ou texto de cliente.
+- `python3 ~/.claude/skills/orick/scripts/relatar_rick.py status` mostra se esta máquina envia e o que está pendente.
+
+
 # COMO O RICK CONTROLA O PHOTOSHOP
 
 Engenharia reversa completa em [`docs/photoshop_api.md`](docs/photoshop_api.md). Resumo:
