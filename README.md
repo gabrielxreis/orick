@@ -4,19 +4,21 @@
 
 [![Último commit](https://img.shields.io/github/last-commit/gabrielxreis/orick?color=brightgreen&label=atualizado&style=for-the-badge)](https://github.com/gabrielxreis/orick/commits/main "Histórico")
 [![Claude Code](https://img.shields.io/badge/Claude_Code-skill-3DDC68.svg?style=for-the-badge&logo=anthropic&logoColor=white)](https://claude.com/claude-code "Claude Code")
-[![Photoshop](https://img.shields.io/badge/Photoshop-2026+-31A8FF.svg?style=for-the-badge&logo=adobephotoshop&logoColor=white)](#requisitos "Requisitos")
-[![Canva](https://img.shields.io/badge/Canva-em_breve-00C4CC.svg?style=for-the-badge)](#canva "Canva")
+[![Photoshop](https://img.shields.io/badge/Photoshop-opcional-31A8FF.svg?style=for-the-badge&logo=adobephotoshop&logoColor=white)](#requisitos "Requisitos")
+[![Canva](https://img.shields.io/badge/Canva-beta-00C4CC.svg?style=for-the-badge)](#canva "Canva")
+[![IA](https://img.shields.io/badge/Só_IA-ChatGPT_|_Gemini-10A37F.svg?style=for-the-badge)](#onde-o-rick-trabalha "Onde o Rick trabalha")
 [![macOS](https://img.shields.io/badge/-macOS-lightblue.svg?style=for-the-badge&logo=apple&logoColor=black)](#requisitos "Requisitos")
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](#requisitos "Requisitos")
 [![Licença: MIT](https://img.shields.io/badge/-MIT-2EA043.svg?style=for-the-badge)](LICENSE "Licença")
 
 </div>
 
-**/orick** (o Rick) é uma skill do Claude Code que é **designer e motion designer**. Faz design **dentro do Adobe Photoshop** a partir das suas referências (post, carrossel, story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, recorte e tratamento de foto) e depois **anima** a peça (PSD em movimento, carrossel em vídeo, logo e título animados). Tudo sai em **camadas editáveis** (texto com a fonte de verdade, formas vetoriais, smart objects, estilos e camadas de ajuste), conferido olhando a imagem exportada. É o irmão de design do [**/ogab**](https://github.com/gabrielxreis/ogab), o editor de vídeo, e usa o motor de motion dele.
+**/orick** (o Rick) é uma skill do Claude Code que é **designer e motion designer**. Faz design a partir das suas referências (post, carrossel, story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, recorte e tratamento de foto) e depois **anima** a peça (PSD em movimento, carrossel em vídeo, logo e título animados). **Você escolhe onde ele trabalha:** no **Adobe Photoshop** (tudo em camadas editáveis: texto com a fonte de verdade, formas vetoriais, smart objects, estilos e camadas de ajuste), no **Canva** ou **só com IA** de imagem (ChatGPT, Gemini). Sem Photoshop ele funciona do mesmo jeito: na instalação ele vê o que você tem e sugere. Toda peça é conferida olhando a imagem exportada. É o irmão de design do [**/ogab**](https://github.com/gabrielxreis/ogab), o editor de vídeo, e usa o motor de motion dele.
 
 > Antes se chamava **/oyoshi** (o Yoshi). Quem já tinha instalado: veja [Veio do /oyoshi?](#veio-do-oyoshi).
 
 * [INSTALAÇÃO](#instalacao)
+    * [Onde o Rick trabalha](#onde-o-rick-trabalha)
     * [Requisitos](#requisitos)
 * [COMO O RICK TRABALHA](#como-o-rick-trabalha)
 * [CARROSSEL](#carrossel)
@@ -38,7 +40,13 @@
 git clone https://github.com/gabrielxreis/orick.git ~/.claude/skills/orick
 ```
 
-Com o Photoshop aberto, gere o catálogo da sua máquina (uma vez, e de novo quando o Photoshop atualizar):
+Não precisa ter Photoshop. No primeiro `/orick`, o Rick olha o que tem na sua máquina (Photoshop, Canva, ChatGPT, IAs conectadas no Claude), sugere o melhor caminho e **você escolhe**: Photoshop, Canva ou só IA. Dá para ver ou refazer a detecção quando quiser:
+
+```bash
+python3 ~/.claude/skills/orick/scripts/detectar_apps.py detectar
+```
+
+Escolheu Photoshop? Com ele aberto, gere o catálogo da sua máquina (uma vez, e de novo quando o Photoshop atualizar):
 
 ```bash
 python3 ~/.claude/skills/orick/scripts/sondar/catalogar.py
@@ -64,17 +72,27 @@ git -C ~/.claude/skills/orick remote set-url origin https://github.com/gabrielxr
 
 O `.venv` continua funcionando; se o `pip` reclamar, recrie com `python3 -m venv ~/.claude/skills/orick/.venv`. Artes antigas (`arte.jsx`) não mudam: a biblioteca agora é `scripts/jsx/rick.jsx` e continua com as funções `Y.*`.
 
+## Onde o Rick trabalha
+
+| Motor | O que sai | Precisa de |
+|---|---|---|
+| **Photoshop** | PSD em camadas editáveis (texto vivo, smart objects, efeitos) + PNG | Adobe Photoshop no Mac (ideal o 2026) |
+| **Canva** | design no Canva, editável por você ou pelo cliente | conector oficial do Canva no Claude (ou importar no app/canva.com) |
+| **Só IA** | a peça pronta em imagem (PNG), página por página | ChatGPT ou Gemini no navegador, ou uma IA de imagem conectada |
+
+O Rick sugere pelo que encontrou na máquina, mas a escolha é sua, e dá para pedir outro motor em qualquer peça.
+
 ## Requisitos
 
 | O quê | Por quê |
 |---|---|
-| macOS | A ponte usa AppleScript (`do javascript`). Windows (COM) está nos planos. |
-| Adobe Photoshop 2026 (27.x) | As ferramentas nativas do agente só existem no 2026. O básico (ExtendScript) funciona em versões antigas. |
-| Python 3.10+ | `scripts/ps_lib.py`. Sem dependências externas. |
-| Permissão de Acessibilidade para o Terminal | Só para fechar alertas do Photoshop sozinho (System Events). |
+| Python 3.10+ | Scripts do Rick. |
+| Adobe Photoshop 2026 (27.x), **opcional** | Só no motor Photoshop. As ferramentas nativas do agente só existem no 2026; o básico (ExtendScript) funciona em versões antigas. Hoje só no macOS (a ponte usa AppleScript; Windows está nos planos). |
+| Permissão de Acessibilidade para o Terminal | Só no motor Photoshop, para fechar alertas dele sozinho (System Events). |
+| Canva, **opcional** | Só no motor Canva: conector oficial do Canva no Claude (autorizar em `/mcp`). |
 | [/ogab](https://github.com/gabrielxreis/ogab) (opcional) | Só para a parte de motion (HyperFrames, carrossel em vídeo, After Effects). |
 
-Não precisa instalar plugin, abrir porta nem configurar senha no Photoshop.
+No Photoshop não precisa instalar plugin, abrir porta nem configurar senha.
 
 
 # COMO O RICK TRABALHA
@@ -240,7 +258,7 @@ PS.gravar(False)   # o resultado fica em $TMPDIR/orick_gravacao.jsonl
 
 # CANVA
 
-O Canva não tem app local para controlar. O caminho é o **conector oficial do Canva** (MCP), que gera, busca, exporta e edita designs por transação (troca texto, imagem e título). Entra como segundo editor quando o fluxo de design do Photoshop estiver pronto.
+O Canva não tem app local para controlar. O caminho é o **conector oficial do Canva** (MCP) no Claude, que gera, busca, exporta e edita designs (troca texto, imagem e título). No motor Canva o Rick planeja a peça, escreve os textos e prepara as imagens, e monta no Canva pelo conector; sem o conector, entrega as imagens e os textos separados para você importar. Está em **beta**: o fluxo mais completo (camadas, remake idêntico, templates da marca) continua sendo o do Photoshop.
 
 
 # ARMADILHAS CONHECIDAS

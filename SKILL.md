@@ -1,6 +1,6 @@
 ---
 name: orick
-description: "Rick, o designer e motion designer com IA (comando /orick, antigo /oyoshi). Faz peças gráficas DENTRO do Adobe Photoshop a partir de referências: post, CARROSSEL (educativo com metáfora em foto, tipográfico ou animado), story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, tratamento e recorte de foto. Monta tudo em camadas editáveis (texto com fonte real, formas, smart objects, estilos, camadas de ajuste, pranchetas) e confere exportando a imagem. Também anima a arte (PSD em movimento com HyperFrames, carrossel em vídeo, logo e título animados) usando as ferramentas de motion do /ogab. Use quando o usuário pedir para criar/editar uma arte, post, carrossel, capa, thumbnail, banner, animar uma arte, mexer no Photoshop, ou citar /orick ou /oyoshi. Canva fica como opção futura (conector oficial)."
+description: "Rick, o designer e motion designer com IA (comando /orick, antigo /oyoshi). Faz peças gráficas a partir de referências no motor que o usuário escolher: Adobe Photoshop (PSD em camadas), Canva ou só com IA de imagem (ChatGPT, Gemini/Nano Banana, IA conectada); detecta o que a máquina tem e sugere, nunca exige o Photoshop. Faz: post, CARROSSEL (educativo com metáfora em foto, tipográfico ou animado), story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, tratamento e recorte de foto. No Photoshop monta tudo em camadas editáveis (texto com fonte real, formas, smart objects, estilos, camadas de ajuste, pranchetas) e confere exportando a imagem. Também anima a arte (PSD em movimento com HyperFrames, carrossel em vídeo, logo e título animados) usando as ferramentas de motion do /ogab. Use quando o usuário pedir para criar/editar uma arte, post, carrossel, capa, thumbnail, banner, animar uma arte, mexer no Photoshop ou no Canva, ou citar /orick ou /oyoshi."
 ---
 
 # Rick, o designer e motion designer (/orick)
@@ -27,9 +27,32 @@ Pasta da skill: `~/.claude/skills/orick/` (`SKILL_DIR`).
 
 0. **Instalação antiga (/oyoshi):** se existir `~/.claude/skills/oyoshi` e NÃO existir `~/.claude/skills/orick`, migrar sem perguntar antes de tudo: `mv ~/.claude/skills/oyoshi ~/.claude/skills/orick && git -C ~/.claude/skills/orick remote set-url origin https://github.com/gabrielxreis/orick.git`, avisar em uma linha ("o Yoshi agora é o Rick, /orick") e seguir dali (os caminhos da skill são `skills/orick`). Se as duas pastas existirem, usar `orick` e avisar que a `oyoshi` sobrou (não apagar sem o ok). `.venv` quebrado depois do `mv`: `python3 -m venv --clear ~/.claude/skills/orick/.venv && ~/.claude/skills/orick/.venv/bin/pip install -q psd-tools fonttools numpy pillow`.
 1. Toda vez que o Rick for iniciado, ANTES de qualquer outra coisa: `git -C SKILL_DIR pull --ff-only --quiet` (sem pedir confirmação). Se trouxe commits novos (`git -C SKILL_DIR log -3 --oneline` mostra hash diferente do anterior), **reler este SKILL.md** e só então seguir com o pedido. Se o pull falhar (sem internet, mudança local não commitada), avisar em uma linha e seguir com a versão local; nunca descartar mudanças locais (commitar e dar push nelas, ou `git stash` + pull + `git stash pop`). Presets de marca e `docs/catalogo/local/` ficam fora do git e não são tocados.
-2. Na primeira vez numa máquina (ou depois de atualizar o Photoshop): `python3 SKILL_DIR/scripts/sondar/catalogar.py` gera `docs/catalogo/local/` (ferramentas nativas, comandos dos painéis da Adobe, descritores). Fica fora do git.
-3. Antes de prometer qualquer coisa "por script": ler `docs/photoshop_api.md`.
+2. **Motor (instalação, uma vez por máquina):** se o `SKILL_DIR/config.json` não tem `"motor"`, ver a seção "Motor: Photoshop, Canva ou só IA" (detecta os apps, pergunta, grava). **Nunca travar nem recusar por falta de Photoshop.**
+3. Só com o motor `photoshop` (e o Photoshop instalado): na primeira vez na máquina, ou depois de atualizar o Photoshop, `python3 SKILL_DIR/scripts/sondar/catalogar.py` (com o Photoshop aberto) gera `docs/catalogo/local/`, fora do git; antes de prometer qualquer coisa "por script", ler `docs/photoshop_api.md`. Com Canva ou IA, pular este passo.
 4. Mandar os relatos pendentes em segundo plano, sem esperar nem avisar: `python3 SKILL_DIR/scripts/relatar_rick.py enviar >/dev/null 2>&1 &` (só sai algo com o /ogab instalado, key de licença e consentimento de relatos dele; na máquina do dono não envia).
+
+## Motor: Photoshop, Canva ou só IA (o usuário escolhe)
+
+O Rick NÃO depende do Photoshop. Na primeira vez numa máquina (config sem `"motor"`), ou quando o usuário pedir para trocar:
+1. `python3 SKILL_DIR/scripts/detectar_apps.py detectar`: diz se tem Photoshop (e a versão), Canva (app ou conector no Claude), ChatGPT e IAs conectadas, e o `recomendado`.
+2. Perguntar com AskUserQuestion, o recomendado primeiro com "(Recomendado)", contando em uma linha o que foi encontrado. As três opções aparecem SEMPRE, mesmo sem o app (aí dizer "não encontrei aqui"):
+   - **Photoshop:** PSD em camadas editáveis montado pelo Rick (só Mac por enquanto; ideal o 2026).
+   - **Canva:** o Rick planeja, escreve e prepara as imagens; a peça é montada no Canva pelo conector oficial do Canva no Claude (autorizar em `/mcp` se pedir) ou o usuário importa no Canva (app ou canva.com).
+   - **Só IA:** a peça inteira sai da IA de imagem (ChatGPT, Gemini/Nano Banana ou IA conectada) com as referências, a ficha e o briefing; sem editor.
+3. Gravar: `python3 SKILL_DIR/scripts/detectar_apps.py escolher <photoshop|canva|ia>`. Escolheu Photoshop sem ter: avisar que para montar o PSD precisa instalar, e que até lá dá para seguir com Canva ou IA (não bloquear).
+
+O motor gravado é o padrão de cada peça (vira a opção recomendada em "Antes de montar"), mas o usuário pode pedir outro a qualquer hora. Trocar de vez: `/orick motor` (refazer os passos acima).
+
+**O que muda por motor:**
+| | Photoshop | Canva | Só IA |
+|---|---|---|---|
+| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | conector do Canva: criar/editar o design, trocar texto e imagem, exportar PNG/PDF; sem conector, entregar as imagens + textos separados para importar | um prompt por página com referências, ficha e briefing (`docs/manual_criativo.md` seção 11, `docs/carrossel.md`) |
+| Texto | camada de texto com fonte real | texto editável do Canva (fonte da marca se existir no Canva; senão a mais parecida, avisando) | escrito pela IA: conferir acento e cada letra em toda página; errou, refazer só a página |
+| Conferir | `conferir_arte.py` + olhar o PNG | olhar o PNG exportado | olhar o PNG (rosto, acento, margem 80-90 px, zona segura) |
+| Entregar | PSD + PNG | link do design + PNG | PNG; carrossel com `carrossel_entrega.py` |
+| Remake/template | `reconstruir.py`, `ciclo.py`, `virar_template.py` (só Photoshop) | duplicar o design no Canva | refazer com a referência anexada |
+
+Ferramentas que precisam do Photoshop (`montar.py`, `reconstruir.py`, `ciclo.py`, `provar_fontes.py`, `reconhecer_fonte.py`, `medir_objeto.py --ps`) não são oferecidas em outro motor; as que só usam Python (`carrossel_entrega.py`, `analisar_ref.py`, `medir_texto.py`, `comparar_fonte.py`, `dissecar_psd.py`, `aparar.py`, `sobrepor.py`) funcionam em qualquer um.
 
 ## Erros e presets (relatos, igual ao Gab)
 
@@ -42,7 +65,7 @@ O Rick usa a MESMA fila da VPS que recebe os relatos do Gab (nada de planilha, f
 - `python3 SKILL_DIR/scripts/relatar_rick.py status` mostra se esta máquina envia e o que está pendente.
 - **No Mac do dono** (`"dono_biblioteca": true` no /ogab): antes de QUALQUER commit no Rick, ler a fila (`python3 SKILL_DIR/scripts/relatos_rick.py fila` e `puxar`). Para cada erro: reproduzir, corrigir, commit+push, `relatos_rick.py resolver <assinatura> <commit> "nota"` e `apagar <path>`. Preset bom entra em `presets/<nome>/` limpo de marca; fraco ou repetido só sai da fila. Depois `relatos_rick.py lido` (a mesma marca de leitura do Gab). O pre-commit (`relatos_rick.py hook`) trava commit sem leitura nas últimas 3 h.
 
-## Como mexer no Photoshop (ordem de preferência)
+## Como mexer no Photoshop (motor `photoshop`; ordem de preferência)
 
 ```python
 import sys, os; sys.path.insert(0, os.path.expanduser("~/.claude/skills/orick/scripts")); import ps_lib as PS
@@ -81,15 +104,16 @@ O Rick é a porta de entrada do design, mas não faz tudo sozinho. Conferir se a
 
 ## Antes de montar: perguntar ONDE gerar (sempre)
 
-Depois do briefing e do mapa aprovados, e ANTES de montar qualquer peça, perguntar ao usuário (AskUserQuestion) onde ela vai ser gerada. O usuário escolhe; o Rick não decide sozinho. Opções:
+Depois do briefing e do mapa aprovados, e ANTES de montar qualquer peça, perguntar ao usuário (AskUserQuestion) onde ela vai ser gerada. O usuário escolhe; o Rick não decide sozinho. Recomendado: a regra da marca, senão o motor gravado no `config.json`. Photoshop só aparece como opção se estiver instalado (ver `detectar_apps.py status`). Opções:
 
 | Opção | O que é | Quando recomendar |
 |---|---|---|
 | **Photoshop** | o Rick monta o PSD em camadas editáveis (foto, texto vivo, efeitos) | quer arquivo editável, série/template, foto real da marca |
+| **Canva** | design no Canva pelo conector oficial (ou para importar) | o usuário/cliente edita no Canva, sem Photoshop |
 | **ChatGPT** (chatgpt.com no navegador) | peça inteira gerada na IA com as referências e a ficha anexadas, uma página por mensagem | marca cujo estilo aprovado nasceu lá |
 | **Gemini / Nano Banana** (gemini.google.com no navegador) | idem, no Gemini | foto realista de pessoa com ficha, quando o ChatGPT erra o rosto |
 | **IA conectada** (Higgsfield, Magnific, Artlist, Freepik... só as conectadas nesta sessão) | gerar foto/elemento pelo conector | falta foto para a cena; mostrar custo em crédito e saldo ANTES e esperar o ok |
-| **Misto** | foto/cena na IA escolhida + texto e marca no Photoshop | quer cena gerada mas com texto editável e certo |
+| **Misto** | foto/cena na IA escolhida + texto e marca no Photoshop ou no Canva | quer cena gerada mas com texto editável e certo |
 
 - Recomendar (primeira opção, "(Recomendado)") pela regra da marca no `design-<marca>.md` ou pela última escolha do usuário para aquela marca; se a marca tem regra fixa de motor, dizer isso na pergunta.
 - Guardar a escolha no `design-<marca>.md` ("Motor usado em AAAA-MM-DD: X") para recomendar da próxima vez; continuar perguntando.
@@ -142,7 +166,7 @@ Lições das primeiras artes (16/10/2026): degradê de fusão alto demais escond
 Ler `docs/carrossel.md` inteiro antes. Resumo:
 1. **A marca manda:** ler o `design-<marca>.md` e os guias da pasta `design/`. Se a marca exige um motor (ex.: "só na IA de imagem que o cliente gosta"), seguir sem plano B.
 2. **Planejar e mostrar antes:** uma linha por página (papel, título, destaque, foto/metáfora). Sequência que funcionou: capa com gancho e 3 chips > metáfora geral > 3 conceitos (cada um com a sua metáfora em foto e um exemplo) > fixação ("Guarde isso!") > conversão (produto + link). Título até 6 palavras, corpo até 2 frases.
-3. **Perguntar o motor** (seção "Antes de montar: perguntar ONDE gerar"): A) Photoshop (PSD editável, uma prancheta por página, padrão do Rick); B) IA de imagem (ChatGPT/Nano Banana) com as referências aprovadas + ficha da pessoa + briefing único, UMA página por mensagem, conferindo acento e rosto a cada página; C) HTML ou motion do /ogab (tipográfico rápido ou carrossel em vídeo). Foto por IA só perguntando antes.
+3. **Perguntar o motor** (seção "Antes de montar: perguntar ONDE gerar"; recomendado = motor do config): A) Photoshop (PSD editável, uma prancheta por página), se instalado; A2) Canva (uma página por design ou um design com N páginas pelo conector); B) IA de imagem (ChatGPT/Nano Banana) com as referências aprovadas + ficha da pessoa + briefing único, UMA página por mensagem, conferindo acento e rosto a cada página; C) HTML ou motion do /ogab (tipográfico rápido ou carrossel em vídeo). Foto por IA só perguntando antes.
 4. **Estilo pronto:** preset `carrossel-educativo` (foto cinematográfica, título condensado em duas cores, exemplo em caixa, blocos glitch, rodapé fixo, rótulo "PÁGINA N — TEMA").
 5. **Entregar:** `python3 SKILL_DIR/scripts/carrossel_entrega.py <pasta>` gera `instagram_1080x1350/` e `folha_carrossel.jpg`; mostrar a folha. Pasta: `<Marca>/design/carrosseis/<AAAA-MM-DD>_<tema>/`.
 
