@@ -83,7 +83,9 @@ PS.js("app.activeDocument.activeLayer.name")               # 2) ExtendScript (DO
 
 ## Marca do cliente (antes de desenhar)
 
-- Pasta da marca: `<pasta_saida>/<Marca>/` (no Mac do dono: `~/Documents/CLAUDE BRAIN/<Marca>/`). Ler `design/design-<marca>.md` e `marca/identidade.md`. Se não existir, pedir PSDs ou referências.
+- **Mesmo cliente do Gab e do Jhon:** o nome do cliente é a pasta em `~/.claude/skills/ogab/clientes/<cliente>/` (a mesma que o Jhon usa em `ojhon/clientes/<cliente>/`). Antes de desenhar para um cliente, ler o que os irmãos já sabem: `ogab/clientes/<cliente>/empresa.md` (o que faz, público, tom, o que NÃO dizer) e `estilo.md`; `ojhon/clientes/<cliente>/trafego.md` (oferta, público, e a seção de criativos: ganchos e peças que ganharam ou perderam teste). Cliente que não existe em nenhum dos dois: criar pelo Gab (`/ogab cliente <nome>`) para os três usarem o mesmo.
+- `pasta_saida` vem do `~/.claude/skills/ogab/config.json` (`"pasta_saida"`); sem o /ogab, perguntar a pasta uma vez e gravar `"pasta_saida"` no `SKILL_DIR/config.json`.
+- Pasta da marca: `<pasta_saida>/<Marca>/` (no Mac do dono: `~/Documents/CLAUDE BRAIN/<Marca>/`). `<Marca>` = a pasta dentro da `pasta_saida` cujo nome, sem espaço, acento e hífen, começa com o nome do cliente (Bora Imigrar = `boraimigrar`, Calverstone Advisors = `calverstone`, X-Trader = `xtrader`); o `empresa.md` do Gab também cita a pasta. Ler `design/design-<marca>.md` e `marca/identidade.md`. Se não existir, pedir PSDs ou referências.
 - **PSD de referência:** dissecar sem abrir o Photoshop (`scripts/dissecar_psd.py`, método em `docs/metodo_arvore.md`), copiar o PSD para `<Marca>/design/referencias/psd/` e escrever/atualizar `design-<marca>.md`.
 - **Árvore de camadas:** sempre a árvore padrão do `docs/metodo_arvore.md` (grupos por função, smart objects, texto em escada, pessoa na frente do título, acabamento em pilha, grão).
 
@@ -103,6 +105,10 @@ O Rick é a porta de entrada do design, mas não faz tudo sozinho. Conferir se a
 3. **Jhon depois:** audita as peças (`ads-creative`: leitura em 1 s, zona segura, texto na imagem, política) antes de subir. Subir campanha só com o "pode" do usuário.
 
 **Peça com vídeo e design juntos** (capa + Reels, carrossel + vídeo): o Rick faz a parte estática e entrega os arquivos na pasta do vídeo; o Gab edita. Nunca mexer em timeline: isso é do Gab.
+
+**O que o Rick deixa para os irmãos (sempre que definir ou mudar o visual de uma marca):** atualizar `<pasta_saida>/<Marca>/design/design-<marca>.md` com cores oficiais (HEX), fontes (PostScript + alternativa gratuita), logo (caminho do arquivo) e regras visuais. O Gab usa esse arquivo nas cores e fontes dos motions e o Jhon no brief do criativo; por isso escrever em linguagem simples, sem depender do Photoshop.
+
+**Ao entregar um criativo de anúncio:** gravar `entrega_rick.md` na pasta das peças (uma linha por arquivo: gancho, formato, motor usado) para o Jhon auditar e montar o teste sem perguntar.
 
 ## Antes de montar: perguntar ONDE gerar (sempre)
 
