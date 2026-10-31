@@ -11,6 +11,10 @@ Referência técnica completa (ferramentas, operações, estrutura dos elementos
 
 1. **Foto da pessoa no Gemini (Nano Banana)**, com a ficha e as fotos reais de referência (o ChatGPT erra o rosto).
    Padrão; o usuário pode escolher outro gerador.
+   Teste de 31/10/2026: o Gemini também fez a CAPA INTEIRA (ficha + rosto + capa do ChatGPT como referência de
+   estilo, no chat do gemini.google.com logado, anexando pelo input de arquivo oculto do menu "+"): rosto fiel e
+   natural, layout igual; errou só o acento ("PRECO" sem Ç). Se o usuário preferir, a arte toda sai no Gemini;
+   acento errado se corrige no Canva depois do Magic Layers (`replace_text`). Sempre conferir cada letra.
 2. **Arte inteira no ChatGPT** com essa foto anexada + referências aprovadas + briefing (`docs/carrossel.md`,
    `docs/manual_criativo.md`): é onde sai bonita. Uma página por mensagem; conferir acento e rosto.
 3. **Canva deixa editável:** subir o PNG (`create-upload-url` + POST cru -> `mediaId`) > `separate-image-layers`
