@@ -60,7 +60,13 @@ Depois é só pedir no Claude Code:
 /orick monta a capa do Reels com essa foto e anima pra 6 segundos
 ```
 
-O Rick se atualiza sozinho (`git pull`) toda vez que é usado.
+O Rick se atualiza sozinho (`git pull`) toda vez que é usado e mostra as novidades da versão nova ([CHANGELOG](CHANGELOG.md)).
+
+Algo não funciona? O doctor confere a instalação e conserta o que dá sozinho:
+
+```bash
+python3 ~/.claude/skills/orick/scripts/doctor.py --corrigir
+```
 
 ## Veio do /oyoshi?
 
