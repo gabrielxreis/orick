@@ -217,6 +217,14 @@ O motor de motion é o do /ogab (`~/.claude/skills/ogab`, `OGAB_DIR`); conferir 
 
 ## Regras
 
+- **Pessoa real na arte = FOTO no Gemini, ARTE no ChatGPT (regra do Gabriel, 31/10/2026, vale para todo cliente).**
+  1) Gemini (Nano Banana), chat NOVO, anexando SÓ as referências do personagem (ficha, rosto, corpo, fotos reais),
+  pedindo só a foto: sem texto, ícone, botão ou design, com espaço livre para o título. 2) ChatGPT, chat novo, com
+  essa foto anexada (+ referências de estilo SEM pessoa) faz títulos, botões, ícones, glitch e rodapé, sem
+  redesenhar a pessoa. 3) Canva (Magic Layers) deixa editável. NUNCA anexar arte anterior gerada por IA como
+  referência da pessoa (o rosto dela contamina). O ChatGPT sozinho erra o rosto; o Gemini sozinho faz design mais
+  fraco. O usuário pode escolher outro caminho.
+
 - **Imagens e elementos por IA** (Higgsfield, Magnific, Artlist ou qualquer conector de IA): pode gerar, **mas SEMPRE perguntar antes** se o usuário quer gerar aquela imagem/elemento por IA, com o que seria gerado e o custo.
 - **Identificar a fonte de uma referência (obrigatório antes de remontar ou copiar um estilo)**, nesta ordem:
   1. **Adobe** `python3 SKILL_DIR/scripts/reconhecer_fonte.py img.png X1 Y1 X2 Y2` (UMA linha de texto): roda o "Localizar fonte semelhante" e salva a lista (`*.fontes.png`, ler com Read). Ícone de nuvem = Adobe Fonts.
