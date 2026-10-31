@@ -38,7 +38,7 @@ O Rick NÃO depende do Photoshop. Na primeira vez numa máquina (config sem `"mo
 1. `python3 SKILL_DIR/scripts/detectar_apps.py detectar`: diz se tem Photoshop (e a versão), Canva (app ou conector no Claude), ChatGPT e IAs conectadas, e o `recomendado`.
 2. Perguntar com AskUserQuestion, o recomendado primeiro com "(Recomendado)", contando em uma linha o que foi encontrado. As três opções aparecem SEMPRE, mesmo sem o app (aí dizer "não encontrei aqui"):
    - **Photoshop:** PSD em camadas editáveis montado pelo Rick (Mac e Windows; ideal o 2026).
-   - **Canva:** o Rick planeja, escreve e prepara as imagens; a peça é montada no Canva pelo conector oficial do Canva no Claude (autorizar em `/mcp` se pedir) ou o usuário importa no Canva (app ou canva.com).
+   - **Canva:** a peça é montada DENTRO do Canva pelo conector oficial (camadas e textos editáveis, `docs/canva.md`). Precisa do app do Canva (faltando: perguntar e rodar `detectar_apps.py instalar_canva`) e do conector autorizado (`/mcp`).
    - **Só IA:** a peça inteira sai da IA de imagem (ChatGPT, Gemini/Nano Banana ou IA conectada) com as referências, a ficha e o briefing; sem editor.
 3. Gravar: `python3 SKILL_DIR/scripts/detectar_apps.py escolher <photoshop|canva|ia>`. Escolheu Photoshop sem ter: avisar que para montar o PSD precisa instalar, e que até lá dá para seguir com Canva ou IA (não bloquear).
 
@@ -47,7 +47,7 @@ O motor gravado é o padrão de cada peça (vira a opção recomendada em "Antes
 **O que muda por motor:**
 | | Photoshop | Canva | Só IA |
 |---|---|---|---|
-| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | **ler `docs/canva.md`**: IA gera só a imagem (sem texto) > `scripts/canva/montar_pptx.py plano.json` (cada texto, forma, foto e logo numa camada) > `previa_pptx.py` > `import-design-from-url` do conector (link temporário perguntando antes) ou o usuário arrasta o PPTX no Canva > ajustes com `perform-editing-operations` | um prompt por página com referências, ficha e briefing (`docs/manual_criativo.md` seção 11, `docs/carrossel.md`) |
+| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | **ler `docs/canva.md`** (referência: `docs/canva_api.md`): tudo DENTRO do Canva pelo conector, camada por camada: IA gera só a imagem (sem texto) > upload das imagens (`create-upload-url`) > cópia do kit de fontes da marca > `scripts/canva/canva_ops.py` > `edit-design` > prévia > `commit` só com o ok. Nunca PowerPoint/PPTX/PDF |
 | Texto | camada de texto com fonte real | texto editável do Canva (fonte da marca se existir no Canva; senão a mais parecida, avisando) | escrito pela IA: conferir acento e cada letra em toda página; errou, refazer só a página |
 | Conferir | `conferir_arte.py` + olhar o PNG | olhar o PNG exportado | olhar o PNG (rosto, acento, margem 80-90 px, zona segura) |
 | Entregar | PSD + PNG | link do design + PNG | PNG; carrossel com `carrossel_entrega.py` |
@@ -119,7 +119,7 @@ Depois do briefing e do mapa aprovados, e ANTES de montar qualquer peça, pergun
 | Opção | O que é | Quando recomendar |
 |---|---|---|
 | **Photoshop** | o Rick monta o PSD em camadas editáveis (foto, texto vivo, efeitos) | quer arquivo editável, série/template, foto real da marca |
-| **Canva** | mesma arte do ChatGPT, mas em camadas no Canva: imagem da IA sem texto + textos, formas e logo editáveis (`docs/canva.md`) | o usuário/cliente edita no Canva, sem Photoshop |
+| **Canva** | mesma arte do ChatGPT, mas montada no Canva em camadas: imagem da IA sem texto + textos (na fonte da marca, pelo kit), formas e logo editáveis (`docs/canva.md`) | o usuário/cliente edita no Canva, sem Photoshop |
 | **ChatGPT** (chatgpt.com no navegador) | peça inteira gerada na IA com as referências e a ficha anexadas, uma página por mensagem | marca cujo estilo aprovado nasceu lá |
 | **Gemini / Nano Banana** (gemini.google.com no navegador) | idem, no Gemini | foto realista de pessoa com ficha, quando o ChatGPT erra o rosto |
 | **IA conectada** (Higgsfield, Magnific, Artlist, Freepik... só as conectadas nesta sessão) | gerar foto/elemento pelo conector | falta foto para a cena; mostrar custo em crédito e saldo ANTES e esperar o ok |

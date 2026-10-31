@@ -3,10 +3,12 @@
   python3 detectar_apps.py detectar          # o que tem instalado + recomendação (JSON); grava em config.json "apps"
   python3 detectar_apps.py escolher <motor>  # photoshop | canva | ia  (grava "motor" no config.json)
   python3 detectar_apps.py status            # motor escolhido e apps detectados
+  python3 detectar_apps.py instalar_canva    # instala o app do Canva (só depois do ok do usuário)
 
 Motores:
   photoshop  PSD em camadas editáveis montado pelo Rick (Adobe Photoshop 2026; Mac por AppleScript, Windows por COM)
-  canva      design no Canva (conector oficial do Canva no Claude, ou o Canva no navegador/app) a partir do que o Rick prepara
+  canva      design montado DENTRO do Canva, camada por camada, pelo conector oficial (docs/canva.md); o app do Canva
+             é obrigatório nesse motor (o usuário vê e mexe nele): faltando, perguntar e instalar com instalar_canva
   ia         peça inteira gerada por IA de imagem (ChatGPT, Gemini/Nano Banana ou IA conectada), sem editor
 
 Nada aqui é obrigatório: sem Photoshop o Rick funciona com Canva ou só IA. A detecção só serve para sugerir.
@@ -113,6 +115,23 @@ def detectar():
     return r
 
 
+def instalar_canva():
+    """App oficial: Mac pelo Homebrew (cask 'canva') ou página oficial; Windows pelo winget. Só com o ok do usuário."""
+    import shutil, subprocess
+    if canva("")["app"]:
+        return "app do Canva já instalado"
+    if WIN and shutil.which("winget"):
+        r = subprocess.run(["winget", "install", "--id", "Canva.Canva", "-e", "--accept-source-agreements",
+                            "--accept-package-agreements"], capture_output=True, text=True)
+        return "instalado pelo winget" if r.returncode == 0 else f"winget falhou: {r.stdout[-300:]}"
+    if not WIN and shutil.which("brew"):
+        r = subprocess.run(["brew", "install", "--cask", "canva"], capture_output=True, text=True)
+        return "instalado pelo Homebrew" if r.returncode == 0 else f"brew falhou: {r.stderr[-300:]}"
+    url = "https://www.canva.com/download/windows/" if WIN else "https://www.canva.com/download/mac/"
+    subprocess.run(["cmd", "/c", "start", url] if WIN else ["open", url])
+    return f"abri a página oficial de download ({url}): o usuário instala e avisa"
+
+
 def escolher(motor):
     motor = motor.lower().strip()
     if motor not in MOTORES:
@@ -130,6 +149,8 @@ if __name__ == "__main__":
         print(json.dumps(detectar(), ensure_ascii=False, indent=1))
     elif a[:1] == ["escolher"] and len(a) > 1:
         print("motor:", escolher(a[1]))
+    elif a[:1] == ["instalar_canva"]:
+        print(instalar_canva())
     elif a[:1] == ["status"]:
         c = _config()
         print(json.dumps({"motor": c.get("motor") or "ainda não escolhido", "apps": c.get("apps") or "não detectado"},
