@@ -29,7 +29,7 @@ Este é o "photoshop_api.md" do Canva: o que existe, o formato de cada comando e
 | `export-design` | PNG/JPG/PDF/PPTX/MP4 | conferir antes com `get-export-formats` |
 | `search-designs`, `list-folder-items`, `create-folder`, `move-item-to-folder` | achar e organizar | |
 | `list-brand-kits`, `search-brand-templates`, `create-design-from-brand-template`, `autofill-design` | marca (plano Pro+) | modelo de marca preenchido mantém as fontes |
-| `separate-image-layers` | imagem chapada vira camadas (Magic Layers) | |
+| `separate-image-layers` | imagem chapada vira design em camadas (Magic Layers) | **fluxo principal**: arte do ChatGPT vira design editável (textos com fonte detectada, elementos e fundo limpo). Só com `mediaId` (upload antes); job: `get-separate-image-layers-job` |
 | `remove-background`, `generate-image` | imagem | |
 | `help` | dúvida de produto do Canva | |
 

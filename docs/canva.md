@@ -7,6 +7,23 @@ Homebrew no Mac, winget no Windows, ou a página oficial). Sem o conector do Can
 
 Referência técnica completa (ferramentas, operações, estrutura dos elementos, app desktop): `docs/canva_api.md`.
 
+## Fluxo PRINCIPAL (31/10/2026, Gabriel: montado peça por peça no Canva "fica feio"): ChatGPT faz, Canva edita
+
+1. **Foto da pessoa no Gemini (Nano Banana)**, com a ficha e as fotos reais de referência (o ChatGPT erra o rosto).
+   Padrão; o usuário pode escolher outro gerador.
+2. **Arte inteira no ChatGPT** com essa foto anexada + referências aprovadas + briefing (`docs/carrossel.md`,
+   `docs/manual_criativo.md`): é onde sai bonita. Uma página por mensagem; conferir acento e rosto.
+3. **Canva deixa editável:** subir o PNG (`create-upload-url` + POST cru -> `mediaId`) > `separate-image-layers`
+   (Magic Layers) > `get-separate-image-layers-job` até `completed` > `read-design`. Testado na capa do carrossel
+   de suporte e resistência do X-Trader: os 8 textos viraram texto editável já na fonte condensada certa, botões e
+   blocos viraram elementos, o fundo ficou limpo; `replace_text` troca a palavra mantendo fonte, cor e lugar.
+4. Conferir lado a lado (miniatura do Canva x PNG do ChatGPT). Perde: degradê e brilho dentro do texto (vira cor
+   chapada). Tamanho sai o do PNG (ex.: 1122x1402): `resize-design` para 1080x1350 se precisar.
+5. Carrossel: uma página por vez no Magic Layers e `merge-designs` na ordem. Salvar edição só com o ok do usuário.
+
+O caminho "kit de fontes + montar camada por camada" (abaixo) fica para quando não houver arte do ChatGPT
+(ex.: template de série com texto trocado em lote).
+
 ## Por que assim
 
 - O conector cria e edita elementos (texto, forma, imagem, página), mas **não escolhe a família da fonte**: texto

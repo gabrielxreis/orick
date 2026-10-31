@@ -47,7 +47,7 @@ O motor gravado é o padrão de cada peça (vira a opção recomendada em "Antes
 **O que muda por motor:**
 | | Photoshop | Canva | Só IA |
 |---|---|---|---|
-| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | **ler `docs/canva.md`** (referência: `docs/canva_api.md`): tudo DENTRO do Canva pelo conector, camada por camada: IA gera só a imagem (sem texto) > upload das imagens (`create-upload-url`) > cópia do kit de fontes da marca > `scripts/canva/canva_ops.py` > `edit-design` > prévia > `commit` só com o ok. Nunca PowerPoint/PPTX/PDF |
+| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | **ler `docs/canva.md`** (referência: `docs/canva_api.md`): foto da pessoa no Gemini > arte inteira no ChatGPT > upload do PNG > `separate-image-layers` (Magic Layers) deixa textos e elementos editáveis > ajustes com `edit-design` > `commit` só com o ok. Montar do zero (kit de fontes + `canva_ops.py`) só sem arte do ChatGPT. Nunca PowerPoint/PPTX/PDF |
 | Texto | camada de texto com fonte real | texto editável do Canva (fonte da marca se existir no Canva; senão a mais parecida, avisando) | escrito pela IA: conferir acento e cada letra em toda página; errou, refazer só a página |
 | Conferir | `conferir_arte.py` + olhar o PNG | olhar o PNG exportado | olhar o PNG (rosto, acento, margem 80-90 px, zona segura) |
 | Entregar | PSD + PNG | link do design + PNG | PNG; carrossel com `carrossel_entrega.py` |
