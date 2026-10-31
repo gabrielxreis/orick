@@ -4,6 +4,8 @@ para a MESMA fila da VPS do Gabriel que recebe os relatos do Gab (/v1/preset, co
   python3 relatar_rick.py registrar --titulo "..." --erro "..." --causa "..." --correcao "..." [--arquivo scripts/x.py ...]
   python3 relatar_rick.py preset <presets/nome>   # registra um preset novo (estrutura, sem textos nem fotos do cliente)
   python3 relatar_rick.py varrer                  # acha os presets que ESTE usuário criou (presets/<nome>/ fora do git)
+                                                  # e as INVENÇÕES na skill: scripts e docs novos, melhorias nos arquivos
+                                                  # (git diff) e o que ficou guardado em stash no Passo zero
   python3 relatar_rick.py enviar                  # varre + manda os pendentes (Passo zero, em segundo plano)
   python3 relatar_rick.py status                  # consentimento, pendentes e enviados
 
@@ -23,6 +25,12 @@ PEND, ENV = os.path.join(PASTA, "pendentes"), os.path.join(PASTA, "enviados")
 VARRIDOS = os.path.join(PASTA, "presets_vistos.json")
 PREFIXO = "RICK "
 TEXTO = (".md", ".json", ".jsx", ".js", ".py", ".txt", ".css", ".html")
+# invenções: o que o usuário (ou o Claude dele) criou/melhorou na skill. Fica de fora o que é dele ou da máquina.
+EXT_INVENCAO = TEXTO + (".sh", ".ps1", ".swift", ".mjs")
+FORA_INVENCAO = ("presets/", "clientes/", "config.json", ".venv/", "docs/catalogo/local/", "scripts/swift/ocr")
+TEMP_INVENCAO = re.compile(r"(^|/)(_?tmp|_?temp|_?cache|__pycache__)(/|$)|\.parcial$", re.I)
+MIN_LINHAS_INVENCAO = 6   # menos que isso é ajuste, não invenção
+LIMITE_ARQ = 40000
 LIMITE_PARTE, PARTES_MAX = 45000, 6
 
 
@@ -181,7 +189,90 @@ def varrer():
     if feitos:
         os.makedirs(PASTA, exist_ok=True)
         json.dump(vistos, open(VARRIDOS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    try:
+        inv = registrar_invencoes()
+    except Exception as e:
+        inv = []; feitos.append(("invenções na skill", f"erro: {e}"))
+    if inv:
+        feitos.append(("invenções na skill", f"{len(inv)} parte(s) registrada(s)"))
     return feitos
+
+
+def _git(*args):
+    r = subprocess.run(["git", "-C", SKILL, *args], capture_output=True, text=True, timeout=60)
+    return r.stdout if r.returncode == 0 else ""
+
+
+def _nosso(rel, blob):
+    """Blob que já passou pelo repo (qualquer commit; o stash não conta): não é invenção do usuário."""
+    return bool(blob) and any(l.split(" ", 1)[0] == blob for l in
+                              _git("rev-list", "--objects", "--branches", "--tags", "--remotes", "--", rel).splitlines())
+
+
+def _fora(rel):
+    return rel.startswith(FORA_INVENCAO) or TEMP_INVENCAO.search(rel) or not rel.endswith(EXT_INVENCAO)
+
+
+def _blocos_invencao():
+    """[(rótulo, texto)] do que este usuário criou ou melhorou na skill (presets vão pelo varrer de presets)."""
+    blocos = []
+    for rel in sorted(_git("ls-files", "--others", "--exclude-standard").splitlines()):
+        f = os.path.join(SKILL, rel)
+        if _fora(rel) or os.path.getsize(f) > 200_000 or _nosso(rel, _git("hash-object", f).strip()):
+            continue
+        try:
+            blocos.append((f"arquivo novo: {rel}", open(f, encoding="utf-8").read()))
+        except Exception:
+            pass
+    mudados = [r for r in _git("diff", "HEAD", "--name-only").splitlines()
+               if r and not _fora(r) and not _nosso(r, _git("hash-object", os.path.join(SKILL, r)).strip())]
+    d = _git("diff", "HEAD", "--", *mudados) if mudados else ""
+    if d.strip():
+        blocos.append(("melhorias nos arquivos da skill (git diff)", d))
+    for linha in _git("stash", "list").splitlines():   # Passo zero guarda as mudanças locais antes do pull
+        ref = linha.split(":", 1)[0]
+        nomes = (_git("stash", "show", "--name-only", "--include-untracked", ref) or _git("stash", "show", "--name-only", ref)).split()
+        seus = [r for r in nomes if not _fora(r) and not _nosso(r, (_git("rev-parse", f"{ref}:{r}") or _git("rev-parse", f"{ref}^3:{r}")).strip())]
+        if not seus:
+            continue
+        sd = _git("diff", f"{ref}^1", ref, "--", *seus)   # `git stash show` não aceita filtro de arquivo
+        for r in seus:
+            novo = _git("show", f"{ref}^3:{r}") if f"b/{r}" not in sd else ""
+            if novo:
+                sd += f"\n--- arquivo novo: {r} ---\n{novo}"
+        if sd.strip():
+            blocos.append((f"guardado em stash antes do update ({ref})", sd))
+    return blocos
+
+
+def registrar_invencoes():
+    """Grava em pendentes/ as invenções deste usuário na skill (anonimizadas, em partes). Não repete o mesmo conteúdo."""
+    blocos = _blocos_invencao()
+    if not blocos or sum(t.count("\n") for _, t in blocos) < MIN_LINHAS_INVENCAO:
+        return []
+    gab, _ = _gab(); nomes = _nomes(gab); corpo = ""
+    for rot, txt in blocos:
+        txt = _anon(re.sub(r"data:[\w/+.-]+;base64,[A-Za-z0-9+/=]+", "data:<removido>", txt), gab, nomes)
+        if len(txt) > LIMITE_ARQ:
+            txt = txt[:LIMITE_ARQ] + f"\n... cortado: {len(txt) - LIMITE_ARQ} caracteres a mais"
+        corpo += f"--- {_anon(rot, gab, nomes)} ---\n{txt}\n"
+    assin = "inv-" + hashlib.sha1(corpo.encode()).hexdigest()[:10]
+    if any(assin in os.path.basename(f) for f in glob.glob(os.path.join(PASTA, "*", "*.json"))):
+        return []   # já registrado (pendente ou enviado)
+    passo = LIMITE_PARTE - 300
+    partes = [corpo[i:i + passo] for i in range(0, len(corpo), passo)][:PARTES_MAX]
+    n, saidas = len(partes), []
+    os.makedirs(PEND, exist_ok=True); carimbo = time.strftime("%Y%m%d-%H%M%S")
+    for i, p_ in enumerate(partes, 1):
+        rel = {"tipo": "invencao", "skill": "orick", "assinatura": assin, "versao": _versao(),
+               "titulo": f"invenção na skill ({len(blocos)} item(ns))" + (f" (parte {i}/{n})" if n > 1 else ""),
+               "erro": _anon("; ".join(r for r, _ in blocos), gab, nomes)[:3000],
+               "diff": f"=== PACOTE INVENCAO ogab v1 parte {i}/{n} ===\n{p_}",
+               "sistema": f"{platform.system()} {platform.release()} {platform.machine()}",
+               "quando": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        f = os.path.join(PEND, f"{carimbo}-{assin}" + (f"-p{i}" if n > 1 else "") + ".json")
+        json.dump(rel, open(f, "w", encoding="utf-8"), ensure_ascii=False, indent=1); saidas.append(f)
+    return saidas
 
 
 def _log(msg):

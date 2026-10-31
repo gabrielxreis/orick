@@ -155,7 +155,7 @@ Vídeo editado (cortes, música, timeline no DaVinci) continua com o /ogab; o Ri
 
 # ERROS E PRESETS DA COMUNIDADE
 
-O Rick usa o mesmo canal de relatos do [/ogab](https://github.com/gabrielxreis/ogab): quando ele corrige um erro da skill na sua máquina, ou quando você cria um preset novo em `presets/<nome>/`, isso vai **anônimo** para a fila do Gabriel, que corrige e publica a melhoria para todo mundo no próximo update.
+O Rick usa o mesmo canal de relatos do [/ogab](https://github.com/gabrielxreis/ogab): quando ele corrige um erro da skill na sua máquina, aprende uma técnica nova, cria um script ou quando você cria um preset novo em `presets/<nome>/`, isso vai **anônimo** para a fila do Gabriel, que revisa e publica a melhoria para todo mundo no próximo update. O que é da sua marca (cores, fontes, textos) fica na pasta da marca e não sai.
 
 - Só sai com o /ogab instalado e o consentimento de relatos que você deu nos termos dele (mudar: `/ogab config relatos sim|nao`).
 - Saem a mensagem do erro, a causa, a correção e o diff do arquivo da skill. Caminhos, e-mails, chaves, seu nome e os nomes dos clientes são apagados antes de gravar.

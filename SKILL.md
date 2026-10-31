@@ -54,16 +54,17 @@ O motor gravado é o padrão de cada peça (vira a opção recomendada em "Antes
 
 Ferramentas que precisam do Photoshop (`montar.py`, `reconstruir.py`, `ciclo.py`, `provar_fontes.py`, `reconhecer_fonte.py`, `medir_objeto.py --ps`) não são oferecidas em outro motor; as que só usam Python (`carrossel_entrega.py`, `analisar_ref.py`, `medir_texto.py`, `comparar_fonte.py`, `dissecar_psd.py`, `aparar.py`, `sobrepor.py`) funcionam em qualquer um.
 
-## Erros e presets (relatos, igual ao Gab)
+## Erros, presets e inteligência (relatos, igual ao Gab)
 
 O Rick usa a MESMA fila da VPS que recebe os relatos do Gab (nada de planilha, formulário, Drive ou e-mail). Tudo dele chega com o nome começando por `RICK_`.
 
 - **Erro corrigido na máquina do usuário:** quando um script, o JSX ou um passo do Rick quebrar e você corrigir na skill, registrar na hora (anônimo: caminhos, e-mails, chaves e nomes de cliente saem sozinhos):
   `python3 SKILL_DIR/scripts/relatar_rick.py registrar --titulo "..." --erro "<mensagem>" --causa "..." --correcao "..." --arquivo scripts/<arquivo>.py`
   Erro do Photoshop do usuário (versão, plugin, permissão) que não é da skill: não registrar.
+- **Inteligência nova (o que o Rick aprende numa máquina):** técnica que funcionou, armadilha do Photoshop/Canva/IA, prompt que acertou, ajuste de método, script que resolveu um problema. Se é GERAL (serve para qualquer marca), escrever DENTRO da skill na hora: técnica em `docs/tecnicas.md`, regra de criação ou prompt em `docs/manual_criativo.md`, carrossel em `docs/carrossel.md`, Photoshop em `docs/photoshop_api.md`, script novo em `scripts/`. O que é de um cliente (cores, fontes, gosto, textos) vai para o `design-<marca>.md` da pasta da marca e NUNCA para a skill. O `enviar` do Passo zero manda as invenções (arquivos novos, melhorias e o que ficou em stash), anônimas e uma vez só; o dono revisa e publica para todos.
 - **Preset novo:** pasta nova em `presets/<nome>/` (README.md + preset.json, sem nome de cliente no texto) vai sozinha na próxima abertura (`enviar` varre). Imagem e PSD vão só pelo nome.
 - `python3 SKILL_DIR/scripts/relatar_rick.py status` mostra se esta máquina envia e o que está pendente.
-- **No Mac do dono** (`"dono_biblioteca": true` no /ogab): antes de QUALQUER commit no Rick, ler a fila (`python3 SKILL_DIR/scripts/relatos_rick.py fila` e `puxar`). Para cada erro: reproduzir, corrigir, commit+push, `relatos_rick.py resolver <assinatura> <commit> "nota"` e `apagar <path>`. Preset bom entra em `presets/<nome>/` limpo de marca; fraco ou repetido só sai da fila. Depois `relatos_rick.py lido` (a mesma marca de leitura do Gab). O pre-commit (`relatos_rick.py hook`) trava commit sem leitura nas últimas 3 h.
+- **No Mac do dono** (`"dono_biblioteca": true` no /ogab): antes de QUALQUER commit no Rick, ler a fila (`python3 SKILL_DIR/scripts/relatos_rick.py fila` e `puxar`). Invenções (`RICK_invenção_na_skill...`): ler, adotar o que é bom e geral (sem nome de cliente) com commit+push, descartar o que já existe ou é específico. Para cada erro: reproduzir, corrigir, commit+push, `relatos_rick.py resolver <assinatura> <commit> "nota"` e `apagar <path>`. Preset bom entra em `presets/<nome>/` limpo de marca; fraco ou repetido só sai da fila. Depois `relatos_rick.py lido` (a mesma marca de leitura do Gab). O pre-commit (`relatos_rick.py hook`) trava commit sem leitura nas últimas 3 h.
 
 ## Como mexer no Photoshop (motor `photoshop`; ordem de preferência)
 
@@ -186,6 +187,15 @@ O motor de motion é o do /ogab (`~/.claude/skills/ogab`, `OGAB_DIR`); conferir 
 - **Motions e presets prontos** (título, lista, gráfico, logo reveal, kinetic, painel...): `OGAB_DIR/presets/ESCOLHA.md` e `OGAB_DIR/biblioteca_motions/CATALOGO.md`, renderizados com a skill `hyperframes`.
 - **After Effects** (camadas editáveis no AE): `OGAB_DIR/aftereffects/README.md`.
 - Regras de motion do usuário valem aqui também: tela sempre mudando (elemento novo a cada 2,5-4 s), 24 fps quando for para o DaVinci, tamanhos coerentes (logo/assunto maior e centralizado), cores oficiais da marca. Vídeo editado (cortes, música, timeline) continua com o /ogab: o Rick entrega a peça animada.
+
+## Outras ferramentas do Gab que o Rick usa (`OGAB_DIR`, conferir se existe)
+
+- **Marca nova ou sem `design-<marca>.md`:** `python3 OGAB_DIR/scripts/marca.py https://site-da-marca.com <pasta_saida>/<Marca>/marca` baixa logos, cores, fontes, favicon e imagem de compartilhamento do site oficial; `marca.py paleta logo.png [prints...] --salvar identidade.json` mede as cores nos pixels (não no olho); `marca.py inverter logo.png` faz a versão branca/preta. Com isso, escrever o `design-<marca>.md`.
+- **Conferir a cor da arte:** `python3 OGAB_DIR/scripts/marca.py conferir arte.png identidade.json` (toda cor com 3% ou mais da arte tem de ser da marca ou neutra). Vale para qualquer motor (Photoshop, Canva, IA).
+- **Foto pequena ou borrada (IA, print, cliente):** `python3 OGAB_DIR/scripts/upscale.py foto.png --escala 4` (local, grátis; `--modelo anime` para ilustração).
+- **Capa/miniatura do YouTube:** antes de mostrar as opções, `python3 OGAB_DIR/scripts/titulo_capa.py --titulo "..." --capa "3 PALAVRAS"` (título e capa são UM par: a capa não repete o título); `titulo_capa.py buscas "busca 1" "busca 2"` mostra quem ganha a busca.
+- **Texto do post e do carrossel** (skills de Instagram que vêm com o Gab, pela ferramenta Skill): `instagram-skills:ig-carousel-planner` (estrutura das páginas), `ig-hook-extractor` (gancho da capa), `ig-caption-writer` (legenda), `ig-hashtag-strategist`, e SEMPRE `ig-humanizer --mode audit` no texto final (tirar cara de IA). Sem o Gab, o Rick escreve seguindo `docs/manual_criativo.md`.
+- **Imagem para olhar:** `python3 OGAB_DIR/scripts/olhar.py` reduz antes do Read (economia).
 
 ## Presets (ler antes de desenhar)
 
