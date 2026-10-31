@@ -7,7 +7,11 @@ Homebrew no Mac, winget no Windows, ou a página oficial). Sem o conector do Can
 
 Referência técnica completa (ferramentas, operações, estrutura dos elementos, app desktop): `docs/canva_api.md`.
 
-## Fluxo PRINCIPAL (31/10/2026, Gabriel: montado peça por peça no Canva "fica feio"): ChatGPT faz, Canva edita
+## ENTREGA = PNG DO CHATGPT (decisão final do Gabriel, 31/10/2026)
+
+**Entrega final = a imagem do ChatGPT (Gabriel, 31/10/2026, depois do comparativo).** No Canva o Magic Layers troca a letra desenhada pelo ChatGPT por fonte comum: o título perde degradê, brilho e relevo, a fonte vira a parecida de catálogo e o neon dos botões enfraquece. Por isso a arte que vai para o post é SEMPRE o PNG do ChatGPT. Correção de palavra/acento: pedir no PRÓPRIO ChatGPT, na mesma conversa, mantendo o estilo ("corrija só a palavra X, mantenha todo o resto idêntico"). Canva só se o usuário pedir explicitamente um arquivo editável, e nunca como entrega final.
+
+## Fluxo (31/10/2026, Gabriel: montado peça por peça no Canva "fica feio"): ChatGPT faz, Canva só se pedirem editável
 
 1. **Foto da pessoa no Gemini (Nano Banana)**, com a ficha e as fotos reais de referência (o ChatGPT erra o rosto).
    Padrão; o usuário pode escolher outro gerador.

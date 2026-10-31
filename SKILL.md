@@ -224,6 +224,7 @@ O motor de motion é o do /ogab (`~/.claude/skills/ogab`, `OGAB_DIR`); conferir 
   redesenhar a pessoa. 3) Canva (Magic Layers) deixa editável. NUNCA anexar arte anterior gerada por IA como
   referência da pessoa (o rosto dela contamina). O ChatGPT sozinho erra o rosto; o Gemini sozinho faz design mais
   fraco. O usuário pode escolher outro caminho.
+- **Entrega final = a imagem do ChatGPT (Gabriel, 31/10/2026, depois do comparativo).** No Canva o Magic Layers troca a letra desenhada pelo ChatGPT por fonte comum: o título perde degradê, brilho e relevo, a fonte vira a parecida de catálogo e o neon dos botões enfraquece. Por isso a arte que vai para o post é SEMPRE o PNG do ChatGPT. Correção de palavra/acento: pedir no PRÓPRIO ChatGPT, na mesma conversa, mantendo o estilo ("corrija só a palavra X, mantenha todo o resto idêntico"). Canva só se o usuário pedir explicitamente um arquivo editável, e nunca como entrega final.
 
 - **Imagens e elementos por IA** (Higgsfield, Magnific, Artlist ou qualquer conector de IA): pode gerar, **mas SEMPRE perguntar antes** se o usuário quer gerar aquela imagem/elemento por IA, com o que seria gerado e o custo.
 - **Identificar a fonte de uma referência (obrigatório antes de remontar ou copiar um estilo)**, nesta ordem:
