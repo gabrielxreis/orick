@@ -337,7 +337,12 @@ def fundo_por_difusao(im, caixas_doc, k, saida, lim_std=7, cores_caixa=None):
 
 
 def roda(*cmd, timeout=600):
-    return subprocess.run(list(cmd), capture_output=True, text=True, timeout=timeout).stdout
+    return subprocess.run(list(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace",
+                          env=dict(os.environ, PYTHONUTF8="1"), timeout=timeout).stdout
+
+
+# OCR: Vision no Mac (swift/ocr), Windows.Media.Ocr no Windows (ocr_windows.py, mesmo JSON)
+OCR = [PY, os.path.join(AQUI, "ocr_windows.py")] if os.name == "nt" else [os.path.join(AQUI, "swift", "ocr")]
 
 
 def main():
@@ -355,7 +360,7 @@ def main():
     ap.add_argument("--nota-min", type=float, default=0.35, help="abaixo disso a linha fica como imagem (logo)")
     a = ap.parse_args(); os.makedirs(a.pasta, exist_ok=True)
     im = Image.open(a.ref).convert("RGB"); W0, H0 = im.size; k = a.largura / W0; H = round(H0 * k)
-    linhas = juntar_blocos(juntar_mesma_linha(json.loads(roda(os.path.join(AQUI, "swift", "ocr"), a.ref))), k, a.pequeno)
+    linhas = juntar_blocos(juntar_mesma_linha(json.loads(roda(*OCR, a.ref))), k, a.pequeno)
     itens, camadas, caixas_mt = [], [], []
     # passada prévia: caixas marca-texto de TODAS as linhas (a cor da caixa vira fundo em qualquer linha vizinha)
     todas_caixas = []

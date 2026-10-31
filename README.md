@@ -8,6 +8,7 @@
 [![Canva](https://img.shields.io/badge/Canva-beta-00C4CC.svg?style=for-the-badge)](#canva "Canva")
 [![IA](https://img.shields.io/badge/Só_IA-ChatGPT_|_Gemini-10A37F.svg?style=for-the-badge)](#onde-o-rick-trabalha "Onde o Rick trabalha")
 [![macOS](https://img.shields.io/badge/-macOS-lightblue.svg?style=for-the-badge&logo=apple&logoColor=black)](#requisitos "Requisitos")
+[![Windows](https://img.shields.io/badge/-Windows-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](#requisitos "Requisitos")
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](#requisitos "Requisitos")
 [![Licença: MIT](https://img.shields.io/badge/-MIT-2EA043.svg?style=for-the-badge)](LICENSE "Licença")
 
@@ -76,7 +77,7 @@ O `.venv` continua funcionando; se o `pip` reclamar, recrie com `python3 -m venv
 
 | Motor | O que sai | Precisa de |
 |---|---|---|
-| **Photoshop** | PSD em camadas editáveis (texto vivo, smart objects, efeitos) + PNG | Adobe Photoshop no Mac (ideal o 2026) |
+| **Photoshop** | PSD em camadas editáveis (texto vivo, smart objects, efeitos) + PNG | Adobe Photoshop no Mac ou no Windows (ideal o 2026) |
 | **Canva** | design no Canva, editável por você ou pelo cliente | conector oficial do Canva no Claude (ou importar no app/canva.com) |
 | **Só IA** | a peça pronta em imagem (PNG), página por página | ChatGPT ou Gemini no navegador, ou uma IA de imagem conectada |
 
@@ -87,8 +88,9 @@ O Rick sugere pelo que encontrou na máquina, mas a escolha é sua, e dá para p
 | O quê | Por quê |
 |---|---|
 | Python 3.10+ | Scripts do Rick. |
-| Adobe Photoshop 2026 (27.x), **opcional** | Só no motor Photoshop. As ferramentas nativas do agente só existem no 2026; o básico (ExtendScript) funciona em versões antigas. Hoje só no macOS (a ponte usa AppleScript; Windows está nos planos). |
-| Permissão de Acessibilidade para o Terminal | Só no motor Photoshop, para fechar alertas dele sozinho (System Events). |
+| Adobe Photoshop 2026 (27.x), **opcional** | Só no motor Photoshop. As ferramentas nativas do agente só existem no 2026; o básico (ExtendScript) funciona em versões antigas. Mac pela ponte AppleScript; Windows pela ponte COM (só o 2026 registra o COM). |
+| Permissão de Acessibilidade para o Terminal | Só no motor Photoshop no Mac, para fechar alertas dele sozinho (System Events). |
+| Windows: pacotes `winrt-*` no `.venv` | Só no motor Photoshop no Windows, para o OCR nativo do `reconstruir.py` (comandos no SKILL.md). "Localizar fonte semelhante" não abre por script no Windows: o comparador local de fontes cobre. |
 | Canva, **opcional** | Só no motor Canva: conector oficial do Canva no Claude (autorizar em `/mcp`). |
 | [/ogab](https://github.com/gabrielxreis/ogab) (opcional) | Só para a parte de motion (HyperFrames, carrossel em vídeo, After Effects). |
 
@@ -209,7 +211,7 @@ O Rick foi treinado remontando posts reais pixel a pixel. As ferramentas que sa�
 
 *À esquerda, o JPG achatado. À direita, o PSD que o Rick reconstruiu sozinho: fundo limpo, 9 camadas de texto vivo com a fonte reconhecida (Unbounded, Space Mono, Ivy Presto) e posição conferida em até 1 px. Único ajuste manual: `--corrigir "/ IGREJA=/IGREJA;•=·;IVNC=IVN©"` para três erros de leitura do OCR. Limite visível: a ponta dos dedos sobre o "G" ficou borrada pelo preenchimento do fundo.*
 
-- **Imagem chapada -> PSD editável** (`reconstruir.py`): OCR nativo do macOS acha cada linha e palavra; o fundo vira "fundo limpo" (texto apagado com preenchimento sensível ao conteúdo, sem crédito); cada linha volta como texto vivo com a fonte reconhecida, negrito e cor de destaque detectados por palavra, caixa marca-texto como forma editável, interface do Instagram (seta, bolinhas) removida.
+- **Imagem chapada -> PSD editável** (`reconstruir.py`): OCR nativo do macOS (ou do Windows) acha cada linha e palavra; o fundo vira "fundo limpo" (texto apagado com preenchimento sensível ao conteúdo, sem crédito); cada linha volta como texto vivo com a fonte reconhecida, negrito e cor de destaque detectados por palavra, caixa marca-texto como forma editável, interface do Instagram (seta, bolinhas) removida.
 - **Ciclo idêntico** (`ciclo.py`): mede a referência, monta, mede o próprio resultado com a mesma régua e corrige até o erro ficar em 1 px.
 - **Reconhecer a fonte** em quatro camadas: Localizar fonte semelhante da Adobe, comparador local (desenho + espessura + largura), prova de fogo no Photoshop (`provar_fontes.py`) e WhatTheFont.
 - **Medir** texto (caixa, altura de maiúscula, altura-x, cor real), objeto (seleção por IA, ângulo e bordas de objeto reto), paleta 60/30/10 e grade de alinhamento da referência.

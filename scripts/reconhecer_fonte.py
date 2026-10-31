@@ -38,6 +38,9 @@ def pronto(png):
 
 
 def main():
+    if os.name == "nt":  # testado 30/10/2026 (PS 27.11): por script o Photoshop cancela o Match Font (erro 8007) e o menu não aparece na automação do Windows
+        sys.exit("Windows: o 'Localizar fonte semelhante' não abre por script. Use o comparar_fonte.py (sistema + Adobe Fonts ativadas) "
+                 "ou peça ao usuário para rodar Texto > Localizar fonte semelhante no Photoshop e dizer as sugestões.")
     img = os.path.abspath(sys.argv[1]); x1, y1, x2, y2 = map(int, sys.argv[2:6])
     saida = sys.argv[6] if len(sys.argv) > 6 else os.path.splitext(img)[0] + ".fontes.png"
     PS.js(f"""var d=app.open(new File({img!r})); app.preferences.rulerUnits=Units.PIXELS;

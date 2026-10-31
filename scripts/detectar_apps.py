@@ -5,7 +5,7 @@
   python3 detectar_apps.py status            # motor escolhido e apps detectados
 
 Motores:
-  photoshop  PSD em camadas editáveis montado pelo Rick (precisa do Adobe Photoshop, de preferência 2026, no Mac)
+  photoshop  PSD em camadas editáveis montado pelo Rick (Adobe Photoshop 2026; Mac por AppleScript, Windows por COM)
   canva      design no Canva (conector oficial do Canva no Claude, ou o Canva no navegador/app) a partir do que o Rick prepara
   ia         peça inteira gerada por IA de imagem (ChatGPT, Gemini/Nano Banana ou IA conectada), sem editor
 
@@ -100,10 +100,10 @@ def ia(conf):
 def detectar():
     conf = _textos_config_claude()
     r = {"sistema": platform.system(), "photoshop": photoshop(), "canva": canva(conf), "ia": ia(conf)}
-    if r["photoshop"]["instalado"] and not WIN:
+    if r["photoshop"]["instalado"]:
         rec, porque = "photoshop", "Photoshop instalado: PSD em camadas editáveis"
-    elif r["photoshop"]["instalado"]:
-        rec, porque = "ia", "Photoshop no Windows ainda não é controlado pelo Rick (só Mac); IA ou Canva por enquanto"
+        if WIN and not r["photoshop"]["agente_nativo"]:
+            porque += " (no Windows a ponte por COM foi testada no 2026; versão antiga pode não responder)"
     elif r["canva"]["app"] or r["canva"]["conector"]:
         rec, porque = "canva", "sem Photoshop; Canva " + ("conectado no Claude" if r["canva"]["conector"] else "instalado")
     else:

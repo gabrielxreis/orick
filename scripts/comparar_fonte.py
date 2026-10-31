@@ -23,6 +23,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 CACHE = os.path.expanduser("~/.claude/skills/orick/.venv/fontes_indice.json")
 PASTAS = ["/System/Library/Fonts", "/Library/Fonts", os.path.expanduser("~/Library/Fonts"),
           os.path.expanduser("~/Library/Application Support/Adobe/CoreSync/plugins/livetype")]
+if os.name == "nt":  # Windows: sistema, fontes do usuário e Adobe Fonts (lá os arquivos vêm sem extensão: livetype/r/12560)
+    PASTAS = [os.path.join(os.environ.get("WINDIR", r"C:\Windows"), "Fonts"),
+              os.path.join(os.environ.get("LOCALAPPDATA", ""), "Microsoft", "Windows", "Fonts"),
+              os.path.join(os.environ.get("APPDATA", ""), "Adobe", "CoreSync", "plugins", "livetype")]
 
 
 def indice():
@@ -32,7 +36,7 @@ def indice():
         for raiz, _, nomes in os.walk(p):  # os.walk enxerga as pastas ocultas do Adobe Fonts (.r/.12345.otf)
             for n in nomes:
                 f = os.path.join(raiz, n)
-                if f.lower().endswith((".ttf", ".otf", ".ttc")):
+                if f.lower().endswith((".ttf", ".otf", ".ttc")) or (os.name == "nt" and p == PASTAS[-1] and "." not in n):
                     arquivos.append(f)
     try:
         c = json.load(open(CACHE))
@@ -43,7 +47,9 @@ def indice():
     fontes = {}
     for f in arquivos:
         try:
-            faces = TTCollection(f).fonts if f.lower().endswith(".ttc") else [TTFont(f, lazy=True)]
+            with open(f, "rb") as fb:
+                ttc = fb.read(4) == b"ttcf"
+            faces = TTCollection(f).fonts if ttc else [TTFont(f, lazy=True)]
         except Exception:
             continue
         for i, ft in enumerate(faces):

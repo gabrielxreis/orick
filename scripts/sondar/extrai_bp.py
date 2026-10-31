@@ -34,5 +34,5 @@ for dp, dn, fn in os.walk(raiz):
             o = objeto(txt, m.start())
             if any(o == e['obj'] for e in ex[nome]): continue
             ex[nome].append({'plugin': plugin, 'obj': o})
-json.dump(ex, open(saida, 'w'), indent=1, ensure_ascii=False)
+json.dump(ex, open(saida, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print(len(ex), 'eventos/classes')

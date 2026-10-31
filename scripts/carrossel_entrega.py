@@ -51,7 +51,7 @@ def main():
     folha = Image.new("RGB", (m + cols * (tw + m), m + lin * (th + m)), "#111111")
     d = ImageDraw.Draw(folha)
     try:
-        fonte = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 28)
+        fonte = ImageFont.truetype("arial.ttf" if os.name == "nt" else "/System/Library/Fonts/Helvetica.ttc", 28)
     except OSError:
         fonte = ImageFont.load_default()
     for i, img in enumerate(finais):
