@@ -47,7 +47,7 @@ O motor gravado é o padrão de cada peça (vira a opção recomendada em "Antes
 **O que muda por motor:**
 | | Photoshop | Canva | Só IA |
 |---|---|---|---|
-| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | conector do Canva: criar/editar o design, trocar texto e imagem, exportar PNG/PDF; sem conector, entregar as imagens + textos separados para importar | um prompt por página com referências, ficha e briefing (`docs/manual_criativo.md` seção 11, `docs/carrossel.md`) |
+| Montar | `arte.jsx` + `montar.py` (seção "Montar uma arte") | **ler `docs/canva.md`**: IA gera só a imagem (sem texto) > `scripts/canva/montar_pptx.py plano.json` (cada texto, forma, foto e logo numa camada) > `previa_pptx.py` > `import-design-from-url` do conector (link temporário perguntando antes) ou o usuário arrasta o PPTX no Canva > ajustes com `perform-editing-operations` | um prompt por página com referências, ficha e briefing (`docs/manual_criativo.md` seção 11, `docs/carrossel.md`) |
 | Texto | camada de texto com fonte real | texto editável do Canva (fonte da marca se existir no Canva; senão a mais parecida, avisando) | escrito pela IA: conferir acento e cada letra em toda página; errou, refazer só a página |
 | Conferir | `conferir_arte.py` + olhar o PNG | olhar o PNG exportado | olhar o PNG (rosto, acento, margem 80-90 px, zona segura) |
 | Entregar | PSD + PNG | link do design + PNG | PNG; carrossel com `carrossel_entrega.py` |
@@ -119,7 +119,7 @@ Depois do briefing e do mapa aprovados, e ANTES de montar qualquer peça, pergun
 | Opção | O que é | Quando recomendar |
 |---|---|---|
 | **Photoshop** | o Rick monta o PSD em camadas editáveis (foto, texto vivo, efeitos) | quer arquivo editável, série/template, foto real da marca |
-| **Canva** | design no Canva pelo conector oficial (ou para importar) | o usuário/cliente edita no Canva, sem Photoshop |
+| **Canva** | mesma arte do ChatGPT, mas em camadas no Canva: imagem da IA sem texto + textos, formas e logo editáveis (`docs/canva.md`) | o usuário/cliente edita no Canva, sem Photoshop |
 | **ChatGPT** (chatgpt.com no navegador) | peça inteira gerada na IA com as referências e a ficha anexadas, uma página por mensagem | marca cujo estilo aprovado nasceu lá |
 | **Gemini / Nano Banana** (gemini.google.com no navegador) | idem, no Gemini | foto realista de pessoa com ficha, quando o ChatGPT erra o rosto |
 | **IA conectada** (Higgsfield, Magnific, Artlist, Freepik... só as conectadas nesta sessão) | gerar foto/elemento pelo conector | falta foto para a cena; mostrar custo em crédito e saldo ANTES e esperar o ok |
