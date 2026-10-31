@@ -14,7 +14,7 @@
 
 </div>
 
-**/orick** (o Rick) é uma skill do Claude Code que é **designer e motion designer**. Faz design a partir das suas referências (post, carrossel, story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, recorte e tratamento de foto) e depois **anima** a peça (PSD em movimento, carrossel em vídeo, logo e título animados). **Você escolhe onde ele trabalha:** no **Adobe Photoshop** (tudo em camadas editáveis: texto com a fonte de verdade, formas vetoriais, smart objects, estilos e camadas de ajuste), no **Canva** ou **só com IA** de imagem (ChatGPT, Gemini). Sem Photoshop ele funciona do mesmo jeito: na instalação ele vê o que você tem e sugere. Toda peça é conferida olhando a imagem exportada. É o irmão de design do [**/ogab**](https://github.com/gabrielxreis/ogab), o editor de vídeo, e usa o motor de motion dele.
+**/orick** (o Rick) é uma skill do Claude Code que é **designer e motion designer**. Faz design a partir das suas referências (post, carrossel, story, capa de Reels e miniatura do YouTube, anúncio, banner, mockup, recorte e tratamento de foto) e depois **anima** a peça (PSD em movimento, carrossel em vídeo, logo e título animados). **O padrão é gerar com IA de imagem** (ChatGPT, Gemini). Se você preferir, ele também trabalha no **Adobe Photoshop** (tudo em camadas editáveis: texto com a fonte de verdade, formas vetoriais, smart objects, estilos e camadas de ajuste) ou no **Canva**. Sem Photoshop ele funciona do mesmo jeito. Toda peça é conferida olhando a imagem exportada. É o irmão de design do [**/ogab**](https://github.com/gabrielxreis/ogab), o editor de vídeo, e usa o motor de motion dele.
 
 > Antes se chamava **/oyoshi** (o Yoshi). Quem já tinha instalado: veja [Veio do /oyoshi?](#veio-do-oyoshi).
 
@@ -41,7 +41,7 @@
 git clone https://github.com/gabrielxreis/orick.git ~/.claude/skills/orick
 ```
 
-Não precisa ter Photoshop. No primeiro `/orick`, o Rick olha o que tem na sua máquina (Photoshop, Canva, ChatGPT, IAs conectadas no Claude), sugere o melhor caminho e **você escolhe**: Photoshop, Canva ou só IA. Dá para ver ou refazer a detecção quando quiser:
+Não precisa ter Photoshop. No primeiro `/orick`, o Rick olha o que tem na sua máquina (Photoshop, Canva, ChatGPT, IAs conectadas no Claude), sugere **IA de imagem como padrão** e **você escolhe**: IA, Photoshop ou Canva. Dá para ver ou refazer a detecção quando quiser:
 
 ```bash
 python3 ~/.claude/skills/orick/scripts/detectar_apps.py detectar
@@ -83,11 +83,11 @@ O `.venv` continua funcionando; se o `pip` reclamar, recrie com `python3 -m venv
 
 | Motor | O que sai | Precisa de |
 |---|---|---|
+| **Só IA (padrão)** | a peça pronta em imagem (PNG), página por página | ChatGPT ou Gemini no navegador, ou uma IA de imagem conectada |
 | **Photoshop** | PSD em camadas editáveis (texto vivo, smart objects, efeitos) + PNG | Adobe Photoshop no Mac ou no Windows (ideal o 2026) |
 | **Canva** | design no Canva, editável por você ou pelo cliente | conector oficial do Canva no Claude (ou importar no app/canva.com) |
-| **Só IA** | a peça pronta em imagem (PNG), página por página | ChatGPT ou Gemini no navegador, ou uma IA de imagem conectada |
 
-O Rick sugere pelo que encontrou na máquina, mas a escolha é sua, e dá para pedir outro motor em qualquer peça.
+O Rick sugere IA de imagem como padrão (mesmo com Photoshop instalado), mas a escolha é sua, e dá para pedir outro motor em qualquer peça.
 
 ## Requisitos
 
@@ -105,7 +105,7 @@ No Photoshop não precisa instalar plugin, abrir porta nem configurar senha.
 
 # COMO O RICK TRABALHA
 
-**Antes de montar, ele pergunta onde gerar** e você escolhe: Photoshop (PSD editável), ChatGPT, Gemini/Nano Banana, uma IA conectada (Higgsfield, Magnific, Artlist...) ou misto (cena na IA, texto no Photoshop). Geração que gasta crédito mostra o custo e o saldo antes.
+**Antes de montar, ele pergunta onde gerar** e você escolhe: ChatGPT (o padrão), Gemini/Nano Banana, uma IA conectada (Higgsfield, Magnific, Artlist...), Photoshop (PSD editável), Canva ou misto (cena na IA, texto no Photoshop ou no Canva). Geração que gasta crédito mostra o custo e o saldo antes.
 
 **Ele se conecta com os irmãos:**
 
@@ -126,8 +126,8 @@ O Rick tem um método próprio de carrossel ([`docs/carrossel.md`](docs/carrosse
 
 | Motor | Quando | Sai |
 |---|---|---|
-| **Photoshop** | quer o arquivo editável, vai virar série | PSD com uma prancheta por página + PNG |
-| **IA de imagem** (ChatGPT, Nano Banana) | o cliente gosta do resultado da IA, ou faltam fotos para as metáforas | PNG por página (briefing único + uma página por mensagem, conferindo acento e rosto) |
+| **IA de imagem** (ChatGPT, Nano Banana), padrão | sempre que a marca não pede outro motor | PNG por página (briefing único + uma página por mensagem, conferindo acento e rosto) |
+| **Photoshop** | você pede o arquivo editável, vai virar série | PSD com uma prancheta por página + PNG |
 | **HTML / motion do /ogab** | tipográfico rápido sem foto, ou carrossel em vídeo | PNG/PDF ou MP4 |
 
 4. **Escolhe o tipo antes:** educativo (lista, antes/depois, mito/realidade, método), campanha de produto em 3 páginas (produto completo > em uso > fechamento de marca) ou motion.

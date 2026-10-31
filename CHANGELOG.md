@@ -1,4 +1,7 @@
 # Novidades do Rick (/orick)
+## 2026.10.31-1 (31/10/2026)
+- **IA de imagem virou o padrão:** o Rick agora sugere gerar com IA (ChatGPT, Gemini) em toda peça, mesmo com o Photoshop instalado. Photoshop e Canva continuam disponíveis: é só escolher na pergunta ou pedir. Para trocar o motor de vez: `/orick motor`.
+
 ## 2026.10.30-3 (30/10/2026)
 - **Mais rápido em peças grandes:** carrossel de várias páginas, série de posts ou versões de anúncio agora saem em paralelo, com até 3 ajudantes ao mesmo tempo (textos, imagens, uma página cada). Um painel no Terminal mostra ao vivo o que está pronto, o que está rodando e o que precisa de atenção. Travas de segurança: ninguém gasta crédito duas vezes, um ajudante por vez no navegador, o Photoshop só com o Rick principal, e nada é montado antes de tudo estar conferido.
 

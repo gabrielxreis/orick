@@ -72,12 +72,12 @@ Formato 4:5 (1080x1350). Medidas do original:
    #assinatura ou @ à direita.
 8. **Duas temperaturas sempre:** cor quente = palavra-chave/marca; cor fria = solução/destaque; vermelho = erro, queda.
 
-## 3. Três motores (escolher pela marca e pelo pedido)
+## 3. Três motores (padrão: IA de imagem; outro só pela marca ou pelo pedido)
 
 | Motor | Quando | Sai |
 |---|---|---|
-| **A. Photoshop** (padrão do Rick) | quer PSD editável, a marca tem fotos próprias, vai virar template/série | PSD com uma prancheta por página + PNG |
-| **B. IA de imagem** (ChatGPT/gpt-image, Nano Banana) | a marca pede (ex.: o cliente gosta do resultado da IA), ou não há foto para as metáforas | PNG por página, não editável |
+| **B. IA de imagem** (ChatGPT/gpt-image, Nano Banana), **padrão do Rick** | sempre que a marca não pede outro motor e o usuário não escolheu Photoshop/Canva | PNG por página, não editável |
+| **A. Photoshop** (opção) | o usuário pede PSD editável, a marca tem fotos próprias, vai virar template/série | PSD com uma prancheta por página + PNG |
 | **C. HTML do /ogab** (`instagram/carrossel`) ou **carrossel de motion** (`instagram/carrossel_motion`) | tipográfico rápido sem foto / carrossel animado em vídeo | PNG/PDF ou MP4 por página |
 
 Fotos das metáforas por IA (motor A ou B) **só perguntando antes** (o que vai ser gerado e o custo).

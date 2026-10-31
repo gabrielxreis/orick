@@ -1,23 +1,23 @@
 """Detecta onde o Rick pode trabalhar nesta máquina e guarda o motor que o usuário escolheu (config.json, fora do git).
 
   python3 detectar_apps.py detectar          # o que tem instalado + recomendação (JSON); grava em config.json "apps"
-  python3 detectar_apps.py escolher <motor>  # photoshop | canva | ia  (grava "motor" no config.json)
+  python3 detectar_apps.py escolher <motor>  # ia | photoshop | canva  (grava "motor" no config.json)
   python3 detectar_apps.py status            # motor escolhido e apps detectados
   python3 detectar_apps.py instalar_canva    # instala o app do Canva (só depois do ok do usuário)
 
-Motores:
+Motores (o padrão é ia):
+  ia         peça inteira gerada por IA de imagem (ChatGPT, Gemini/Nano Banana ou IA conectada), sem editor
   photoshop  PSD em camadas editáveis montado pelo Rick (Adobe Photoshop 2026; Mac por AppleScript, Windows por COM)
   canva      design montado DENTRO do Canva, camada por camada, pelo conector oficial (docs/canva.md); o app do Canva
              é obrigatório nesse motor (o usuário vê e mexe nele): faltando, perguntar e instalar com instalar_canva
-  ia         peça inteira gerada por IA de imagem (ChatGPT, Gemini/Nano Banana ou IA conectada), sem editor
 
-Nada aqui é obrigatório: sem Photoshop o Rick funciona com Canva ou só IA. A detecção só serve para sugerir.
+Padrão: ia (recomendado sempre). Photoshop e Canva são opção quando o usuário escolhe ou pede; nada aqui é obrigatório.
 """
 import glob, json, os, platform, re, sys, time
 
 SKILL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG = os.path.join(SKILL, "config.json")
-MOTORES = ("photoshop", "canva", "ia")
+MOTORES = ("ia", "photoshop", "canva")
 IAS_CONECTADAS = ("higgsfield", "magnific", "artlist", "freepik", "krea", "wonda", "leonardo", "midjourney", "ideogram",
                   "flux", "replicate", "fal", "openai", "gemini", "runway", "recraft")
 WIN = platform.system() == "Windows"
@@ -102,14 +102,13 @@ def ia(conf):
 def detectar():
     conf = _textos_config_claude()
     r = {"sistema": platform.system(), "photoshop": photoshop(), "canva": canva(conf), "ia": ia(conf)}
-    if r["photoshop"]["instalado"]:
-        rec, porque = "photoshop", "Photoshop instalado: PSD em camadas editáveis"
-        if WIN and not r["photoshop"]["agente_nativo"]:
-            porque += " (no Windows a ponte por COM foi testada no 2026; versão antiga pode não responder)"
-    elif r["canva"]["app"] or r["canva"]["conector"]:
-        rec, porque = "canva", "sem Photoshop; Canva " + ("conectado no Claude" if r["canva"]["conector"] else "instalado")
-    else:
-        rec, porque = "ia", "sem Photoshop nem Canva: IA de imagem no navegador funciona em qualquer máquina"
+    # Padrão do Rick é IA de imagem (regra do dono, 31/10/2026): funciona em qualquer máquina. Photoshop e Canva
+    # aparecem como opção quando instalados; a detecção só conta o que tem, não muda o recomendado.
+    rec, porque = "ia", "padrão do Rick: IA de imagem (ChatGPT, Gemini) funciona em qualquer máquina"
+    extras = [n for n, ok in (("Photoshop", r["photoshop"]["instalado"]),
+                              ("Canva", r["canva"]["app"] or r["canva"]["conector"])) if ok]
+    if extras:
+        porque += "; " + " e ".join(extras) + " também disponíve" + ("is" if len(extras) > 1 else "l") + " se você pedir"
     r["recomendado"], r["porque"] = rec, porque
     c = _config(); c["apps"] = dict(r, quando=time.strftime("%Y-%m-%d")); _salvar(c)
     return r
