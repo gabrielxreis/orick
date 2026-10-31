@@ -1,4 +1,7 @@
 # Novidades do Rick (/orick)
+## 2026.10.30-3 (30/10/2026)
+- **Mais rápido em peças grandes:** carrossel de várias páginas, série de posts ou versões de anúncio agora saem em paralelo, com até 3 ajudantes ao mesmo tempo (textos, imagens, uma página cada). Um painel no Terminal mostra ao vivo o que está pronto, o que está rodando e o que precisa de atenção. Travas de segurança: ninguém gasta crédito duas vezes, um ajudante por vez no navegador, o Photoshop só com o Rick principal, e nada é montado antes de tudo estar conferido.
+
 ## 2026.10.30-2 (30/10/2026)
 - **Doctor do Rick:** `python3 ~/.claude/skills/orick/scripts/doctor.py` confere a instalação inteira (Python, pacotes, motor escolhido, Photoshop e catálogo, OCR, Canva, Gab e Jhon, relatos) e, com `--corrigir`, conserta sozinho o que dá: cria o `.venv`, instala os pacotes, compila o OCR do Mac e acerta o endereço do repositório. O que só você pode fazer vem com o passo a passo.
 - **Novidades depois do update:** quando o Rick atualiza, ele mostra o que mudou desde a última vez que você viu (esta lista).

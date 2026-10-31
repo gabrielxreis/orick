@@ -158,6 +158,8 @@ O Rick anima o que desenha usando o motor do [/ogab](https://github.com/gabrielx
 
 Vídeo editado (cortes, música, timeline no DaVinci) continua com o /ogab; o Rick entrega a peça animada.
 
+**Peça grande em paralelo:** carrossel de várias páginas, série de posts ou versões de anúncio saem com até 3 ajudantes ao mesmo tempo (textos, imagens, uma página cada), com painel ao vivo no Terminal e travas de segurança (`scripts/paralelo.py`, o mesmo sistema do Gab): sem crédito gasto duas vezes, um ajudante por vez no navegador, Photoshop só com o Rick principal.
+
 
 # ERROS E PRESETS DA COMUNIDADE
 

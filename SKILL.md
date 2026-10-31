@@ -171,6 +171,16 @@ Lições das primeiras artes (16/10/2026): degradê de fusão alto demais escond
 
 **Versão story de um post (4:5 ou 1:1 -> 9:16):** `python3 SKILL_DIR/scripts/montar.py SKILL_DIR/scripts/jsx/para_story.jsx ARQ=/caminho/post.psd` gera `post-story.psd/png`: amplia a tela, expande a foto de fundo com sensível ao conteúdo (local, sem crédito), estica a granulação e sobe o rodapé para fora dos 250-340 px de baixo (caixa de mensagem). Conferir o PNG. Técnicas de efeito e produção (mockup, neon, 3D, dupla exposição, lote de posts...) estão em `docs/tecnicas.md`.
 
+## Produção em paralelo (forks, para ir mais rápido)
+
+Peça com várias partes independentes (carrossel de 4+ páginas, série de posts, uma versão por gancho de anúncio, várias marcas no mesmo pedido): o Rick principal divide em **frentes** e dispara até 3 agentes ao mesmo tempo (ferramenta Agent), com a trava do `scripts/paralelo.py` (o mesmo sistema do Gab). Peça única e simples: fazer direto, fork gasta token à toa.
+
+1. **Portões (só o principal, depois do ok do usuário):** pasta da peça = `<Marca>/design/carrosseis/<AAAA-MM-DD>_<tema>/` (ou `artes/...`) com o `mapa.md` aprovado. `python3 SKILL_DIR/scripts/paralelo.py liberar <pasta> briefing`, depois `mapa`, depois `motor` (quando o usuário escolheu onde gerar).
+2. **Painel ao vivo, obrigatório:** `python3 SKILL_DIR/scripts/paralelo.py painel <pasta da peça ou do lote>` com run_in_terminal (aba "Progresso: <peça>") e mandar o link `[Progresso: <peça>](#terminal/<tab_id>)` na conversa. Sem painel o `iniciar` recusa (PAINEL_FECHADO).
+3. **Disparar:** `paralelo.py pode <pasta>` diz o que já pode. Frentes: `marca` (marca nova: `marca.py`, paleta, fonte faltando), `textos` (copy de todas as páginas + `ig-humanizer`), `imagens` (fotos/objetos por IA conectada, banco ou upscale; GASTA crédito: custo aprovado antes), `pagina:<n>` (uma página/post/versão por agente: o `arte.jsx`, o prompt da IA ou o plano do Canva daquela página; no motor IA, gera a imagem), `legenda`, `motion` (depois de montado). Cada agente recebe no prompt: a frente, a pasta da peça, o que ler (`design-<marca>.md`, `mapa.md`, `textos/`, `docs/manual_criativo.md`) e o protocolo: `iniciar <pasta> <frente> --quem <nome>` antes, escrever SÓ na pasta que o `iniciar` disser, `concluir ... --saida <arquivo>` no fim (ou `falhou --erro`). Agente NUNCA abre o Photoshop, NUNCA fala com o usuário, NUNCA gasta crédito que o principal não aprovou; Chrome só com `recurso pegar navegador` (um agente por vez) e soltar logo depois.
+4. **Juntar e montar (só o principal):** `paralelo.py juntar <pasta>` tem de dizer PODE_MONTAR. Montar no motor escolhido (Photoshop: uma página por vez com `montar.py`, conferindo cada PNG; Canva/IA: na ordem das páginas), conferir tudo junto (folha do carrossel) e `liberar <pasta> montado`. Depois disso o `motion` pode rodar.
+5. Problema no painel (⚠ travada, ✗ falhou, ↻ desatualizada): o principal decide refazer (`iniciar --refazer "motivo"`), outra fonte ou `dispensar` com o ok do usuário. Refazer o que gasta crédito só com novo ok.
+
 ## Carrossel
 
 Ler `docs/carrossel.md` inteiro antes. Resumo:
