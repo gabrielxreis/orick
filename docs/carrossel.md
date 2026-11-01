@@ -33,6 +33,28 @@ Quantidade de páginas sai do conteúdo real (6-10 é ponto de partida, não met
 resultados para o gancho. Capa: promessa concreta e motivo para deslizar (6-12 palavras), não só o nome do assunto.
 Última página: síntese útil sozinha + UMA ação.
 
+## 0c. Sem tema ainda: ideias e ganchos
+
+Quando o usuário pede carrossel sem assunto ("me dá ideias de carrossel"), o Rick propõe 5 a 10 ideias do nicho da
+marca (ler `empresa.md` do cliente e os ganchos que ganharam no `trafego.md` do Jhon). Cada ideia numa linha:
+**gancho da capa** | tipo/estrutura (0b) | nº de páginas | o que cada página cobre em poucas palavras | ação final.
+O usuário escolhe uma e segue para o passo 1.
+
+Moldes de gancho que funcionam em carrossel (adaptar ao tom da marca, nunca inventar número ou resultado):
+- **Lista:** "N coisas que [público] precisa saber sobre [tema]".
+- **Níveis:** "Os N níveis de [habilidade]: em qual você está?".
+- **Troca:** "Pare de [hábito comum]. Faça [melhor caminho]." / "Não diga X, diga Y".
+- **Chamado direto:** "Você ainda não usa [recurso] do jeito certo".
+- **Primeiros passos:** "N coisas para fazer assim que começar [atividade]".
+- **Afirmação forte:** "[Ferramenta/método] substituiu [tarefa cansativa]" (só se for verdade e a marca aceitar).
+
+Fica de fora do carrossel (funciona em vídeo, não em página parada): POV/meme, resposta a comentário, notícia do dia,
+desabafo que depende do tom de voz.
+
+**Ação final por palavra-chave:** em vez de só "link na bio", a última página pode pedir "Comente PALAVRA que eu te
+mando [o material]", com a PALAVRA numa caixa em destaque. Só usar se a marca tiver resposta automática no
+Instagram (ManyChat ou parecido) configurada para essa palavra, ou se alguém vai responder à mão; perguntar antes.
+
 ## 1. Planejar o texto (mostrar antes de desenhar)
 
 - Usar a `ig-carousel-planner` (se instalada) ou este roteiro. Mostrar ao usuário uma linha por página
@@ -156,9 +178,18 @@ monta sozinho). Precisa do /ogab instalado.
 
 1. Pasta `<Marca>/design/carrosseis/<AAAA-MM-DD>_<tema>/` com as páginas, o briefing/arte.jsx e o PSD (motor A).
 2. `python3 SKILL_DIR/scripts/carrossel_entrega.py <pasta>` gera `instagram_1080x1350/*.jpg` (corte central,
-   sem distorcer) e `folha_carrossel.jpg` (todas numeradas, para mostrar de uma vez).
+   sem distorcer) e `folha_carrossel.jpg` (todas numeradas, para mostrar de uma vez). No Mac, `--abrir` abre o
+   Finder com as páginas finais já selecionadas (AirDrop para o celular ou arrastar para onde quiser).
 3. Mostrar a folha ao usuário. Se a marca tem pasta no Drive, subir lá (design > carrosseis).
 4. Legenda do post pela `ig-caption-writer` + `ig-humanizer` (se instaladas), salva em `legenda_post.txt`.
+
+## 4b. Carrossel tipográfico (motor C): regras de diagramação
+
+- Título ocupa perto de metade da página; com 4 linhas ou mais, reduzir o corpo do título em vez de apertar margem.
+- Bloco de conteúdo em coluna flexível com espaço distribuído por igual (título, apoio, caixa): título curto ou longo,
+  a página continua equilibrada. Nada de posição fixa para o texto de apoio.
+- Capa com selo de categoria; páginas do meio numeradas ("02 / 07"); página final centralizada, sem seta de arrastar.
+- Template da marca aprovado UMA vez (capa, página de conteúdo, página final) e reaproveitado em todo carrossel dela.
 
 ## 5. Cuidados
 

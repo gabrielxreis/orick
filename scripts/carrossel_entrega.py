@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Entrega de carrossel: páginas (PNG de qualquer tamanho) -> versão do Instagram + folha com todas.
 
-    python3 carrossel_entrega.py <pasta_das_paginas> [--saida <pasta>] [--formato 4x5|1x1|9x16] [--colunas 4]
+    python3 carrossel_entrega.py <pasta_das_paginas> [--saida <pasta>] [--formato 4x5|1x1|9x16] [--colunas 4] [--abrir]
 
 Lê os PNG/JPG da pasta em ordem de nome (01_capa.png, 02_...), corta no centro para a proporção certa sem distorcer,
 grava <saida>/instagram_1080x1350/NN_nome.jpg (qualidade 95) e <saida>/folha_carrossel.jpg (miniaturas numeradas
 para mostrar ao usuário ou ao cliente de uma vez). Saída padrão: a própria pasta.
+--abrir (Mac): abre o Finder com as páginas finais já selecionadas, prontas para AirDrop ou arrastar.
 """
-import argparse, os, sys
+import argparse, os, subprocess, sys
 from PIL import Image, ImageDraw, ImageFont
 
 FORMATOS = {"4x5": (1080, 1350), "1x1": (1080, 1080), "9x16": (1080, 1920)}
@@ -29,6 +30,7 @@ def main():
     ap.add_argument("--saida")
     ap.add_argument("--formato", default="4x5", choices=FORMATOS)
     ap.add_argument("--colunas", type=int, default=4)
+    ap.add_argument("--abrir", action="store_true")
     a = ap.parse_args()
     saida = a.saida or a.pasta
     w, h = FORMATOS[a.formato]
@@ -62,6 +64,12 @@ def main():
     caminho = os.path.join(saida, "folha_carrossel.jpg")
     folha.save(caminho, quality=90)
     print(f"folha: {caminho}")
+
+    if a.abrir and sys.platform == "darwin":
+        arqs = ", ".join(f'POSIX file "{os.path.abspath(os.path.join(dest, os.path.splitext(f)[0] + ".jpg"))}"'
+                         for f in pags)
+        subprocess.run(["osascript", "-e", f'tell application "Finder" to reveal {{{arqs}}}',
+                        "-e", 'tell application "Finder" to activate'], check=False)
 
 
 if __name__ == "__main__":

@@ -188,11 +188,12 @@ Peça com várias partes independentes (carrossel de 4+ páginas, série de post
 ## Carrossel
 
 Ler `docs/carrossel.md` inteiro antes. Resumo:
+0. **Sem tema?** `docs/carrossel.md` seção 0c: 5-10 ideias com gancho, estrutura e nº de páginas; moldes de gancho; ação final por palavra-chave ("Comente X") só com resposta automática configurada.
 1. **A marca manda:** ler o `design-<marca>.md` e os guias da pasta `design/`. Se a marca exige um motor (ex.: "só na IA de imagem que o cliente gosta"), seguir sem plano B.
 2. **Planejar e mostrar antes:** uma linha por página (papel, título, destaque, foto/metáfora). Sequência que funcionou: capa com gancho e 3 chips > metáfora geral > 3 conceitos (cada um com a sua metáfora em foto e um exemplo) > fixação ("Guarde isso!") > conversão (produto + link). Título até 6 palavras, corpo até 2 frases.
 3. **Perguntar o motor** (seção "Antes de montar: perguntar ONDE gerar"; recomendado = regra da marca, senão motor do config, senão IA): A) IA de imagem, o padrão (ChatGPT/Nano Banana) com as referências aprovadas + ficha da pessoa + briefing único, UMA página por mensagem, conferindo acento e rosto a cada página; B) Photoshop (PSD editável, uma prancheta por página), se instalado; B2) Canva (uma página por design ou um design com N páginas pelo conector); C) HTML ou motion do /ogab (tipográfico rápido ou carrossel em vídeo). Foto por IA só perguntando antes.
 4. **Estilo pronto:** preset `carrossel-educativo` (foto cinematográfica, título condensado em duas cores, exemplo em caixa, blocos glitch, rodapé fixo, rótulo "PÁGINA N — TEMA").
-5. **Entregar:** `python3 SKILL_DIR/scripts/carrossel_entrega.py <pasta>` gera `instagram_1080x1350/` e `folha_carrossel.jpg`; mostrar a folha. Pasta: `<Marca>/design/carrosseis/<AAAA-MM-DD>_<tema>/`.
+5. **Entregar:** `python3 SKILL_DIR/scripts/carrossel_entrega.py <pasta> --abrir` gera `instagram_1080x1350/` e `folha_carrossel.jpg`; mostrar a folha. Pasta: `<Marca>/design/carrosseis/<AAAA-MM-DD>_<tema>/`.
 
 ## Motion (o Rick também anima)
 
