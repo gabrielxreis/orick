@@ -131,8 +131,14 @@ def instalar_canva():
     return f"abri a página oficial de download ({url}): o usuário instala e avisa"
 
 
+# Photoshop e Canva desligados pelo dono em 02/11/2026: só IA de imagem até ele religar
+DESLIGADOS = {"photoshop", "canva"}
+
+
 def escolher(motor):
     motor = motor.lower().strip()
+    if motor in DESLIGADOS:
+        raise SystemExit(f"motor {motor} está desligado por enquanto: o Rick gera só por IA de imagem (use ia)")
     if motor not in MOTORES:
         raise SystemExit(f"motor inválido: {motor} (use {' | '.join(MOTORES)})")
     c = _config(); c["motor"] = motor; c["motor_respondido"] = time.strftime("%Y-%m-%d"); _salvar(c)
@@ -152,7 +158,7 @@ if __name__ == "__main__":
         print(instalar_canva())
     elif a[:1] == ["status"]:
         c = _config()
-        print(json.dumps({"motor": c.get("motor") or "ainda não escolhido", "apps": c.get("apps") or "não detectado"},
+        print(json.dumps({"motor": ("ia" if c.get("motor") in DESLIGADOS else c.get("motor")) or "ainda não escolhido", "apps": c.get("apps") or "não detectado"},
                          ensure_ascii=False, indent=1))
     else:
         raise SystemExit(__doc__)

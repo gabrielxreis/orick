@@ -1,4 +1,7 @@
 # Novidades do Rick (/orick)
+## 2026.11.02-1 (02/11/2026)
+- **Só IA de imagem por enquanto:** Photoshop e Canva foram desligados. Toda arte sai da IA de imagem (ChatGPT, Gemini ou a IA conectada), com as referências da sua marca. Quando voltarem, aviso aqui.
+
 ## 2026.11.01-1 (01/11/2026)
 - **Ideias de carrossel:** sem tema? O Rick propõe 5 a 10 ideias do seu nicho, cada uma com o gancho da capa, a estrutura e quantas páginas, e você escolhe. Vieram junto moldes de gancho que funcionam em carrossel e a página final "Comente PALAVRA que eu te mando" (só quando tem resposta automática configurada).
 - **Entrega direto para o celular:** no Mac, o carrossel pronto abre no Finder com as páginas selecionadas, prontas para AirDrop.
