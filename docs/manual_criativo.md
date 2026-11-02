@@ -190,6 +190,9 @@ Integre a alteração com escala, perspectiva e sombras coerentes. Não redesenh
 - **Imagem:** ideia reconhecível rápido; cor natural; fisheye sem vinheta quando pedido; personagem fiel (rosto,
   corpo, acessório, roupa); sem fantasia por automatismo; produto com forma, escala e reflexo coerentes; mãos e
   contatos sem erro; edição pontual preservou a base; logos oficiais e sem deformação.
+- **Limpeza e enquadramento:** nenhuma pessoa com cabeça, testa ou queixo cortados (nem depois do corte final); texto
+  nunca sobre rosto; formato de referência (meme, comparação) sem ornamento da marca a mais; no máximo 2 textos por
+  página fora o CTA; teste do celular: o olho acha a ideia em 1 segundo (`carrossel.md` 0d).
 - **Texto:** folga nas laterais, topo e rodapé; legível no celular; acentos, nomes e caixa corretos; nenhuma palavra
   cortada; overlays refinados e letra limpa; texto gerado por IA conferido palavra por palavra; CTA e hashtags da
   conta certa.

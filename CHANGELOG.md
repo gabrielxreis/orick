@@ -1,4 +1,7 @@
 # Novidades do Rick (/orick)
+## 2026.11.02-2 (02/11/2026)
+- **Tela limpa e cabeça inteira:** carrossel em formato de referência (meme, comparação, tela dividida) fica limpo como a referência, com no máximo 2 textos por página e sem enfeites da marca por cima. Nenhuma pessoa sai com a cabeça cortada e nenhum texto fica em cima de rosto; o Rick confere cada página antes de seguir.
+
 ## 2026.11.02-1 (02/11/2026)
 - **Só IA de imagem por enquanto:** Photoshop e Canva foram desligados. Toda arte sai da IA de imagem (ChatGPT, Gemini ou a IA conectada), com as referências da sua marca. Quando voltarem, aviso aqui.
 

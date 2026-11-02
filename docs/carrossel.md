@@ -33,6 +33,17 @@ Quantidade de páginas sai do conteúdo real (6-10 é ponto de partida, não met
 resultados para o gancho. Capa: promessa concreta e motivo para deslizar (6-12 palavras), não só o nome do assunto.
 Última página: síntese útil sozinha + UMA ação.
 
+## 0d. Tela limpa e cabeça inteira (REGRA, 02/11/2026)
+
+Caso real: carrossel "Falso Trader x Trader Real" (formato meme, tela dividida em duas fotos) saiu reprovado pelo dono: "muito poluído, muita informação na tela, imagens cortando a cabeça". Foi o sistema completo da marca (blocos glitch nas duas bordas, rodapé, linha com brilho, rótulos gigantes cromados) somado a duas fotos por página, e a IA enquadrou as pessoas cortando cabeça e testa.
+
+- **Formato que vem de referência (meme, comparação, tela dividida, antes/depois) mantém a limpeza da referência.** A marca entra só na cor e na fonte do texto. Nada de glitch, moldura, chips, linha com brilho ou rodapé completo por cima. No máximo uma assinatura pequena (logo OU @) num canto, e nunca em todas as páginas se a referência não tem. Se o usuário escolher "padrão da marca" num formato assim, aplicar paleta e fonte e avisar que os ornamentos ficam de fora para não poluir.
+- **Uma ideia por página, no máximo 2 textos na tela** (ex.: os dois rótulos da comparação). Texto extra (legenda, número, explicação) só se a referência tem. Página de CTA: até 4 blocos (frase, destaque, ação, link); logo e selo contam como bloco.
+- **Rótulo nunca em cima de rosto.** Na tela dividida o rótulo fica na faixa vazia da foto (céu, parede, mesa) ou na linha de divisão, pequeno como na referência (até ~10% da altura da página), não gigante.
+- **Cabeça inteira, sempre.** Toda pessoa entra com a cabeça inteira e folga acima (testa, topo da cabeça e queixo dentro do quadro); corte de enquadramento só abaixo do peito ou da cintura. No prompt da IA escrever: "enquadre cada pessoa com a cabeça inteira e espaço livre acima da cabeça; nunca corte cabeça, testa, olhos ou queixo". Foto real que só funciona cortando a cabeça = trocar a foto, não forçar.
+- **Conferir depois de cada página e depois do corte final** (3:4 > 4:5 corta topo e base): cabeça cortada, rótulo no rosto ou tela cheia demais = refazer aquela página antes de seguir. Pedir o formato nativo certo (4:5) para não depender do corte.
+- **Teste rápido de poluição:** olhar a página reduzida do tamanho de um celular no feed. Se o olho não sabe para onde ir em 1 segundo, tirar elementos até sobrar a ideia.
+
 ## 0c. Sem tema ainda: ideias e ganchos
 
 Quando o usuário pede carrossel sem assunto ("me dá ideias de carrossel"), o Rick propõe 5 a 10 ideias do nicho da
