@@ -1,4 +1,7 @@
 # Novidades do Rick (/orick)
+## 2026.11.03-1 (03/11/2026)
+- **O padrão do cliente manda:** antes de qualquer arte de cliente (e sempre que começar uma série nova para ele), o Rick abre o dossiê da empresa e os últimos posts do Instagram dela e segue exatamente esse padrão. Primeiro faz 1 peça de prova ao lado dos posts reais; só segue com o resto se parecer da mesma página.
+
 ## 2026.11.02-2 (02/11/2026)
 - **Tela limpa e cabeça inteira:** carrossel em formato de referência (meme, comparação, tela dividida) fica limpo como a referência, com no máximo 2 textos por página e sem enfeites da marca por cima. Nenhuma pessoa sai com a cabeça cortada e nenhum texto fica em cima de rosto; o Rick confere cada página antes de seguir.
 
