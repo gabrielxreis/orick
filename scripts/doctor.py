@@ -147,7 +147,7 @@ def motor_e_apps():
 
 def irmaos():
     g = "irmãos"
-    for nome, papel in (("ogab", "motion, relatos e ferramentas de marca/capa"), ("ojhon", "brief e auditoria de anúncio")):
+    for nome, papel in (("ogab", "motion, tráfego (brief e auditoria de anúncio), relatos e ferramentas de marca/capa"),):
         ok = any(os.path.exists(os.path.expanduser(f"{b}/{nome}/SKILL.md")) for b in ("~/.claude/skills", "~/.agents/skills"))
         item("✓" if ok else "·", g, f"/{nome} " + ("instalado" if ok else f"não instalado (opcional: {papel})"))
     try:

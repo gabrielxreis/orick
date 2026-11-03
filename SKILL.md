@@ -16,7 +16,7 @@ O que pedem e onde está:
 |---|---|
 | post, story, capa, banner, anúncio, mockup | "Montar uma arte" |
 | carrossel | "Carrossel" (abaixo) + `docs/carrossel.md` |
-| vídeo / tráfego no mesmo pedido | "Quem faz o quê" (Gab e Jhon) |
+| vídeo / tráfego no mesmo pedido | "Quem faz o quê" (Gab, que também faz o tráfego) |
 | animar uma arte, carrossel animado, logo/título em movimento | "Motion" |
 | copiar um post / virar template | "Imagem -> PSD editável" e "Template da marca" |
 | gerar ou editar imagem por IA, capa, charge, edição pontual | `docs/manual_criativo.md` (prompts prontos) |
@@ -93,13 +93,13 @@ PS.js("app.activeDocument.activeLayer.name")               # 2) ExtendScript (DO
 3. Reproduzir ESSE padrão: layout, fonte, cor, tipo de foto, rodapé, CTA. Nada de estilo inventado, preset genérico ou "parecido".
 3b. **Detectar os PADRÕES antes de gerar (regra do dono, 03/11/2026: "você tem que detectar padrões nas artes, logos, escritas etc. para não gerar puro; no dossiê das empresas no Drive tem tudo"):** abrir também o material do designer no Drive compartilhado (ex.: `Integralize Holding/<Cliente>/CRIATIVOS/Designer`: PDF de marca, KV, PSDs e PNGs; baixar pelo `gws drive files get --params '{"fileId":..,"alt":"media","supportsAllDrives":true}'`, porque o Drive File Stream dá timeout) e escrever no topo do `design-<marca>.md` uma **FICHA DE PADRÕES**: fontes exatas (título e apoio), cores, hierarquia do texto (ex.: escada pequeno > palavra enorme > pequeno), tipos de fundo, como a pessoa/objeto entra, logo (qual arquivo, versão de cor, posição, tamanho), elementos fixos (rodapé, contador, "te explicamos na legenda", selos) e o que é proibido. Cada prompt cita a ficha item por item; a IA gera só foto/cena e texto; **logo e elementos fixos entram SEMPRE pelo arquivo real por cima**, nunca desenhados pela IA. Mostrar ao dono qual referência e qual ficha vão ser seguidas ANTES de gerar.
 4. **Prova antes do lote:** gerar 1 peça e pôr lado a lado com 2-3 posts reais (`sobrepor.py`/folha). Só seguir com o resto se parecer da mesma página do Instagram. Agente/frente que gera recebe no pedido os caminhos do dossiê e as imagens de referência anexadas.
-- **Mesmo cliente do Gab e do Jhon:** o nome do cliente é a pasta em `~/.claude/skills/ogab/clientes/<cliente>/` (a mesma que o Jhon usa em `ojhon/clientes/<cliente>/`). Antes de desenhar para um cliente, ler o que os irmãos já sabem: `ogab/clientes/<cliente>/empresa.md` (o que faz, público, tom, o que NÃO dizer) e `estilo.md`; `ojhon/clientes/<cliente>/trafego.md` (oferta, público, e a seção de criativos: ganchos e peças que ganharam ou perderam teste). Cliente que não existe em nenhum dos dois: criar pelo Gab (`/ogab cliente <nome>`) para os três usarem o mesmo.
+- **Mesmo cliente do Gab:** o nome do cliente é a pasta em `~/.claude/skills/ogab/clientes/<cliente>/` (a mesma que a área de tráfego do Gab usa em `ogab/trafego/clientes/<cliente>/`). Antes de desenhar para um cliente, ler o que os irmãos já sabem: `ogab/clientes/<cliente>/empresa.md` (o que faz, público, tom, o que NÃO dizer) e `estilo.md`; `ogab/trafego/clientes/<cliente>/trafego.md` (oferta, público, e a seção de criativos: ganchos e peças que ganharam ou perderam teste). Cliente que não existe em nenhum dos dois: criar pelo Gab (`/ogab cliente <nome>`) para os três usarem o mesmo.
 - `pasta_saida` vem do `~/.claude/skills/ogab/config.json` (`"pasta_saida"`); sem o /ogab, perguntar a pasta uma vez e gravar `"pasta_saida"` no `SKILL_DIR/config.json`.
 - Pasta da marca: `<pasta_saida>/<Marca>/` (no Mac do dono: `~/Documents/CLAUDE BRAIN/<Marca>/`). `<Marca>` = a pasta dentro da `pasta_saida` cujo nome, sem espaço, acento e hífen, começa com o nome do cliente (Bora Imigrar = `boraimigrar`, Calverstone Advisors = `calverstone`, X-Trader = `xtrader`); o `empresa.md` do Gab também cita a pasta. Ler `design/design-<marca>.md` e `marca/identidade.md`. Se não existir, pedir PSDs ou referências.
 - **PSD de referência:** dissecar sem abrir o Photoshop (`scripts/dissecar_psd.py`, método em `docs/metodo_arvore.md`), copiar o PSD para `<Marca>/design/referencias/psd/` e escrever/atualizar `design-<marca>.md`.
 - **Árvore de camadas:** sempre a árvore padrão do `docs/metodo_arvore.md` (grupos por função, smart objects, texto em escada, pessoa na frente do título, acabamento em pilha, grão).
 
-## Quem faz o quê (Rick, Gab e Jhon se conectam)
+## Quem faz o quê (Rick e Gab se conectam)
 
 O Rick é a porta de entrada do design, mas não faz tudo sozinho. Conferir se a skill existe (`~/.claude/skills/<nome>/SKILL.md`) e chamar pela ferramenta Skill passando o pedido com o contexto (marca, pasta, o que já foi decidido):
 
@@ -107,18 +107,18 @@ O Rick é a porta de entrada do design, mas não faz tudo sozinho. Conferir se a
 |---|---|---|
 | **Vídeo** (Reels, edição, timeline, legenda, anúncio em vídeo, roteiro, voz) | **/ogab** | manda o pedido para o Gab; entrega o que é de design (capa, lettering, PSD para virar motion) |
 | **Design** (post, carrossel, capa, thumbnail, banner, criativo estático, mockup) | **/orick** | faz aqui |
-| **Tráfego** (resultado de campanha, CPA/ROAS, criativos que performam, concorrentes no Ad Library, público, oferta, verba) | **/ojhon** | lê `~/.claude/skills/ojhon/clientes/<cliente>/trafego.md` (e `painel.json`) se existir; dado novo ou análise = chamar o Jhon |
+| **Tráfego** (resultado de campanha, CPA/ROAS, criativos que performam, concorrentes no Ad Library, público, oferta, verba) | **/ogab trafego** (o antigo /ogab trafego não existe mais) | lê `~/.claude/skills/ogab/trafego/clientes/<cliente>/trafego.md` (e `painel.json`) se existir; dado novo ou análise = chamar o tráfego do Gab |
 
-**Criativo de anúncio em imagem/carrossel (ponte com o Jhon):**
-1. **Jhon antes:** objetivo, público, oferta, ganchos (3-4 ângulos), formato por plataforma e o que a política não deixa dizer. Sai um `brief_anuncio.md` na pasta da arte. Sem brief: propor passar pelo `/ojhon` antes de montar.
+**Criativo de anúncio em imagem/carrossel (ponte com o tráfego do Gab):**
+1. **Tráfego do Gab antes:** objetivo, público, oferta, ganchos (3-4 ângulos), formato por plataforma e o que a política não deixa dizer. Sai um `brief_anuncio.md` na pasta da arte. Sem brief: propor passar pelo `/ogab trafego` antes de montar.
 2. **Rick:** monta uma versão por gancho (teste A/B), mesma grade e marca, só o gancho e a imagem mudam.
-3. **Jhon depois:** audita as peças (`ads-creative`: leitura em 1 s, zona segura, texto na imagem, política) antes de subir. Subir campanha só com o "pode" do usuário.
+3. **Tráfego do Gab depois:** audita as peças (`ads-creative`: leitura em 1 s, zona segura, texto na imagem, política) antes de subir. Subir campanha só com o "pode" do usuário.
 
 **Peça com vídeo e design juntos** (capa + Reels, carrossel + vídeo): o Rick faz a parte estática e entrega os arquivos na pasta do vídeo; o Gab edita. Nunca mexer em timeline: isso é do Gab.
 
-**O que o Rick deixa para os irmãos (sempre que definir ou mudar o visual de uma marca):** atualizar `<pasta_saida>/<Marca>/design/design-<marca>.md` com cores oficiais (HEX), fontes (PostScript + alternativa gratuita), logo (caminho do arquivo) e regras visuais. O Gab usa esse arquivo nas cores e fontes dos motions e o Jhon no brief do criativo; por isso escrever em linguagem simples, sem depender do Photoshop.
+**O que o Rick deixa para os irmãos (sempre que definir ou mudar o visual de uma marca):** atualizar `<pasta_saida>/<Marca>/design/design-<marca>.md` com cores oficiais (HEX), fontes (PostScript + alternativa gratuita), logo (caminho do arquivo) e regras visuais. O Gab usa esse arquivo nas cores e fontes dos motions e o tráfego do Gab no brief do criativo; por isso escrever em linguagem simples, sem depender do Photoshop.
 
-**Ao entregar um criativo de anúncio:** gravar `entrega_rick.md` na pasta das peças (uma linha por arquivo: gancho, formato, motor usado) para o Jhon auditar e montar o teste sem perguntar.
+**Ao entregar um criativo de anúncio:** gravar `entrega_rick.md` na pasta das peças (uma linha por arquivo: gancho, formato, motor usado) para o tráfego do Gab auditar e montar o teste sem perguntar.
 
 ## Antes de montar: perguntar ONDE gerar (sempre)
 

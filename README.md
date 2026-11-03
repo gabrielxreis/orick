@@ -113,7 +113,7 @@ No Photoshop não precisa instalar plugin, abrir porta nem configurar senha.
 |---|---|
 | vídeo (Reels, edição, timeline, anúncio em vídeo) | [/ogab](https://github.com/gabrielxreis/ogab), o editor; o Rick entrega capa, lettering e PSD para animar |
 | design (post, carrossel, capa, thumbnail, banner, criativo estático) | /orick |
-| tráfego (resultado de campanha, criativos que performam, concorrentes, público) | /ojhon, o gestor de tráfego; no criativo de anúncio ele faz o brief antes e audita as peças depois |
+| tráfego (resultado de campanha, criativos que performam, concorrentes, público) | /ogab trafego (o Gab também é o gestor de tráfego; o antigo /ojhon não existe mais); no criativo de anúncio ele faz o brief antes e audita as peças depois |
 
 
 # CARROSSEL
