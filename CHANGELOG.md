@@ -1,4 +1,7 @@
 # Novidades do Rick (/orick)
+## 2026.11.03-2 (03/11/2026)
+- **Ficha de padrões da marca:** antes de gerar, o Rick lê o material do designer no Drive (guia de marca, PSDs, artes aprovadas) e o Instagram, e anota fontes, cores, hierarquia do texto, posição e versão da logo e os elementos fixos. A IA faz só a foto e o texto; logo e elementos fixos entram pelo arquivo real. Ele mostra a referência e a ficha antes de gerar.
+
 ## 2026.11.03-1 (03/11/2026)
 - **O padrão do cliente manda:** antes de qualquer arte de cliente (e sempre que começar uma série nova para ele), o Rick abre o dossiê da empresa e os últimos posts do Instagram dela e segue exatamente esse padrão. Primeiro faz 1 peça de prova ao lado dos posts reais; só segue com o resto se parecer da mesma página.
 
